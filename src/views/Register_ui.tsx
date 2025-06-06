@@ -2,6 +2,7 @@ import React from "react";
 import bg from "./assets/grass.jpg";
 
 import Navbar from "./components/navbar";
+import Footer from "./components/Footer";
 
 const Register_ui: React.FC = () => {
   return (
@@ -72,6 +73,7 @@ const Register_ui: React.FC = () => {
             </p>
           </div>
         </div>
+        <Footer />
       </div>
     </body>
   );

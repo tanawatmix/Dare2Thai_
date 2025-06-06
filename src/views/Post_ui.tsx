@@ -25,25 +25,98 @@ const PostPage = () => {
   const placeTypes = ["ร้านอาหาร", "สถานที่ท่องเที่ยว", "โรงแรม"];
   const provinces = [
     "กรุงเทพมหานคร",
-    "เชียงใหม่",
-    "ภูเก็ต",
-    "ชลบุรี",
-    "นครราชสีมา",
+    "กระบี่",
+    "กาญจนบุรี",
+    "กาฬสินธุ์",
+    "กำแพงเพชร",
     "ขอนแก่น",
-    "สุราษฎร์ธานี",
-    "อุบลราชธานี",
-    "สงขลา",
+    "จันทบุรี",
+    "ฉะเชิงเทรา",
+    "ชลบุรี",
+    "ชัยนาท",
+    "ชัยภูมิ",
+    "ชุมพร",
+    "เชียงราย",
+    "เชียงใหม่",
+    "ตรัง",
+    "ตราด",
+    "ตาก",
+    "นครนายก",
+    "นครปฐม",
+    "นครพนม",
+    "นครราชสีมา",
+    "นครศรีธรรมราช",
+    "นครสวรรค์",
+    "นนทบุรี",
+    "นราธิวาส",
+    "น่าน",
+    "บึงกาฬ",
+    "บุรีรัมย์",
+    "ปทุมธานี",
+    "ประจวบคีรีขันธ์",
+    "ปราจีนบุรี",
+    "ปัตตานี",
+    "พระนครศรีอยุธยา",
+    "พะเยา",
+    "พังงา",
+    "พัทลุง",
+    "พิจิตร",
+    "พิษณุโลก",
+    "เพชรบุรี",
+    "เพชรบูรณ์",
+    "แพร่",
+    "พังงา",
+    "ภูเก็ต",
+    "มหาสารคาม",
+    "มุกดาหาร",
+    "แม่ฮ่องสอน",
+    "ยโสธร",
+    "ยะลา",
+    "ร้อยเอ็ด",
+    "ระนอง",
     "ระยอง",
+    "ราชบุรี",
+    "ลพบุรี",
+    "ลำปาง",
+    "ลำพูน",
+    "เลย",
+    "ศรีสะเกษ",
+    "สกลนคร",
+    "สงขลา",
+    "สตูล",
+    "สมุทรปราการ",
+    "สมุทรสงคราม",
+    "สมุทรสาคร",
+    "สระแก้ว",
+    "สระบุรี",
+    "สิงห์บุรี",
+    "สุโขทัย",
+    "สุพรรณบุรี",
+    "สุราษฎร์ธานี",
+    "สุรินทร์",
+    "หนองคาย",
+    "หนองบัวลำภู",
+    "อ่างทอง",
+    "อำนาจเจริญ",
+    "อุดรธานี",
+    "อุตรดิตถ์",
+    "อุทัยธานี",
+    "อุบลราชธานี",
   ];
 
-  const dummyPosts = Array.from({ length: 30 }).map((_, i) => ({
+  // ฟังก์ชันสุ่มค่าใน array
+  function getRandomItem<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const dummyPosts = Array.from({ length: 150 }).map((_, i) => ({
     postId: `post-${i}`,
     image: i % 3 === 0 ? postImage : i % 3 === 1 ? postImage2 : postImage3,
     title: `ร้านน่าชิม ${i + 1}`,
     description:
       "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor o eiusmod tempor incididunt ut labore et dolore magna aliqua.lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    type: placeTypes[i % placeTypes.length],
-    province: provinces[i % provinces.length],
+    type: getRandomItem(placeTypes),
+    province: getRandomItem(provinces),
   }));
 
   // ✅ กรองโพสต์จาก dropdown
@@ -61,7 +134,7 @@ const PostPage = () => {
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   const handleSearch = () => {
-    setCurrentPage(1); // รีเซ็ตไปหน้าที่ 1
+    // setCurrentPage(1); // รีเซ็ตไปหน้าที่ 1
     setIsDrawerOpen(false); // ปิด drawer
   };
 
@@ -162,19 +235,66 @@ const PostPage = () => {
       {/* ✅ Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center pb-12 gap-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
+          {/* << ปุ่มย้อนกลับหน้าแรก */}
+          {currentPage > 1 && (
             <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`px-4 py-2 rounded ${
-                currentPage === index + 1
-                  ? "bg-pink-500 text-white"
-                  : "bg-white border border-gray-300"
-              } hover:bg-pink-400 hover:text-white transition`}
+              onClick={() => setCurrentPage(1)}
+              className="px-2 py-1 border rounded hover:bg-pink-100"
             >
-              {index + 1}
+              {"<<"}
             </button>
-          ))}
+          )}
+
+          {/* < ปุ่มย้อนหน้า */}
+          {currentPage > 1 && (
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="px-2 py-1 border rounded hover:bg-pink-100"
+            >
+              {"<"}
+            </button>
+          )}
+
+          {/* แสดงเฉพาะ 5 หน้า */}
+          {Array.from({ length: 5 }, (_, i) => {
+            const pageNumber = i + Math.max(1, currentPage - 2);
+            if (pageNumber > totalPages) return null;
+            return (
+              <button
+                key={pageNumber}
+                onClick={() => setCurrentPage(pageNumber)}
+                className={`px-4 py-2 rounded ${
+                  currentPage === pageNumber
+                    ? "bg-pink-500 text-white"
+                    : "bg-white border border-gray-300"
+                } hover:bg-pink-400 hover:text-white transition`}
+              >
+                {pageNumber}
+              </button>
+            );
+          })}
+
+          {/* > ปุ่มถัดไป */}
+          {currentPage < totalPages && (
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              className="px-2 py-1 border rounded hover:bg-pink-100"
+            >
+              {">"}
+            </button>
+          )}
+
+          {/* >> ปุ่มไปหน้าสุดท้าย */}
+          {currentPage < totalPages && (
+            <button
+              onClick={() => setCurrentPage(totalPages)}
+              className="px-2 py-1 border rounded hover:bg-pink-100"
+            >
+              {">>"}
+            </button>
+          )}
         </div>
       )}
 

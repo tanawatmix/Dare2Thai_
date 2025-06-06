@@ -1,6 +1,7 @@
 import React from "react";
 import bg from "./assets/grass.jpg";
 
+import Footer from "./components/Footer";
 import Navbar from "./components/navbar";
 
 const Login: React.FC = () => {
@@ -61,6 +62,7 @@ const Login: React.FC = () => {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
