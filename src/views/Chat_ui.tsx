@@ -2,6 +2,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
 import pic from "./assets/picture.png";
+import send from "./assets/send.png";
 
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
@@ -67,10 +68,10 @@ const ChatUI = () => {
                     />
                   </div>
                 )}
-                <div ref={endOfMessagesRef} />
               </div>
             ))
           )}
+          <div ref={endOfMessagesRef} />
         </div>
 
         <div className="flex gap-2 items-center">
@@ -88,13 +89,16 @@ const ChatUI = () => {
           />
           <button
             onClick={handleSend}
-            className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
+            className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-secondary"
           >
-            ส่ง
+            <img src={send} alt="ส่ง" className="w-6 h-6" />
           </button>
 
           {/* ปุ่มเลือกรูป */}
-          <button onClick={() => fileInputRef.current?.click()}>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-secondary"
+          >
             <img src={pic} alt="เลือกรูป" className="w-6 h-6 cursor-pointer" />
           </button>
 

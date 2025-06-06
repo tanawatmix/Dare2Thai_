@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
@@ -134,7 +134,7 @@ const PostPage = () => {
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   const handleSearch = () => {
-    // setCurrentPage(1); // รีเซ็ตไปหน้าที่ 1
+    setCurrentPage(1); // รีเซ็ตไปหน้าที่ 1
     setIsDrawerOpen(false); // ปิด drawer
   };
 
