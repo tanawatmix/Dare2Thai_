@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiMenu, FiX, FiUser } from "react-icons/fi";
 import logo from "./../assets/thai.png";
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,13 +9,7 @@ const Navbar: React.FC = () => {
   const [user, setUser] = useState<{ username: string; role: string } | null>(
     null
   );
-
-  JSON.stringify({
-    id: "123",
-    username: "somchai",
-    email: "somchai@example.com",
-    role: "USER", // อาจเป็น "USER", "OWNER", "ADMIN"
-  });
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const status = localStorage.getItem("isLoggedIn");
@@ -34,12 +29,14 @@ const Navbar: React.FC = () => {
     setIsLoggedIn(false);
     setUser(null);
     window.location.href = "/home";
-    // หรือใช้ reload ถ้าต้องการอัปเดตทุก state
-    // window.location.reload();
+  };
+
+  const changeLanguage = (lng: "en" | "th") => {
+    i18n.changeLanguage(lng);
   };
 
   return (
-    <nav className="bg-primary p-4 px-8 shadow-md fixed w-full z-50">
+    <nav className="bg-primary p-4 px-8  shadow-md fixed w-full z-50">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -56,55 +53,63 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-6">
           <button
             onClick={() => (window.location.href = "/member")}
-            className="font-bold text-black hover:text-pink-400"
+            className="font-bold text-black hover:text-neutral"
           >
-            สถานที่ท่องเที่ยว
+            {t("place")}
           </button>
           <button
             onClick={() => (window.location.href = "/home")}
-            className="font-bold text-black hover:text-pink-400"
+            className="font-bold text-black hover:text-neutral"
           >
-            Home
+            {t("home")}
           </button>
 
           {isLoggedIn ? (
             <>
+              <span className="text-black font-bold">
+                {t("hello_user", { name: user?.username })}
+              </span>
               <button
                 onClick={handleLogout}
                 className="font-bold text-red-500 hover:text-red-700"
               >
-                Logout
+                {t("logout")}
               </button>
-              <button className="font-bold text-black hover:text-pink-400 pointer-cursor" onClick={() => (window.location.href = "/profile")}>
-                สวัสดี, {user?.username}
+              <button
+                className="font-bold text-black hover:text-pink-400"
+                onClick={() => (window.location.href = "/profile")}
+              >
+                <FiUser className="inline mr-1" /> {t("profile")}
               </button>
             </>
           ) : (
             <>
               <button
                 onClick={() => (window.location.href = "/register")}
-                className="font-bold text-black hover:text-pink-400"
+                className="font-bold text-black hover:text-neutral"
               >
-                Register
+                {t("register")}
               </button>
               <button
                 onClick={() => (window.location.href = "/login")}
-                className="font-bold text-black hover:text-pink-400"
+                className="font-bold text-black hover:text-neutral "
               >
-                Login
+                {t("login")}
               </button>
             </>
           )}
 
-          <button
-            onClick={() => (window.location.href = "/profile")}
-            className="font-bold text-black hover:text-pink-400 flex text-2xl border-2 rounded-full items-center border-black hover:border-pink-400 p-2"
+          {/* Language Switch */}
+          <select
+            onChange={(e) => changeLanguage(e.target.value as "en" | "th")}
+            className="ml-4 border rounded p-1 text-black"
           >
-            <FiUser className="mr-1" />
-          </button>
+            <option value="th">ภาษาไทย</option>
+            <option value="en">ENGLISH</option>
+          </select>
         </div>
 
-        {/* Mobile Icon */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={toggleMenu}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
@@ -119,13 +124,13 @@ const Navbar: React.FC = () => {
             onClick={() => (window.location.href = "/member")}
             className="text-left font-bold text-black hover:text-pink-400"
           >
-            สถานที่ท่องเที่ยว
+            {t("place")}
           </button>
           <button
             onClick={() => (window.location.href = "/home")}
             className="text-left font-bold text-black hover:text-pink-400"
           >
-            Home
+            {t("home")}
           </button>
 
           {!isLoggedIn ? (
@@ -134,30 +139,44 @@ const Navbar: React.FC = () => {
                 onClick={() => (window.location.href = "/register")}
                 className="text-left font-bold text-black hover:text-pink-400"
               >
-                Register
+                {t("register")}
               </button>
               <button
                 onClick={() => (window.location.href = "/login")}
                 className="text-left font-bold text-black hover:text-pink-400"
               >
-                Login
+                {t("login")}
               </button>
             </>
           ) : (
-            <button
-              onClick={handleLogout}
-              className="text-left font-bold text-black hover:text-red-500"
-            >
-              Logout
-            </button>
+            <>
+              <span className="text-black font-bold">
+                {t("hello_user", { name: user?.username })}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="text-left font-bold text-red-500 hover:text-red-700"
+              >
+                {t("logout")}
+              </button>
+              <button
+                onClick={() => (window.location.href = "/profile")}
+                className="text-left font-bold text-black hover:text-pink-400"
+              >
+                <FiUser className="inline mr-1" /> {t("profile")}
+              </button>
+            </>
           )}
 
-          <button
-            onClick={() => (window.location.href = "/profile")}
-            className="text-left font-bold text-black hover:text-pink-400 flex items-center"
+          {/* Language Switch */}
+          <select
+            onChange={(e) => changeLanguage(e.target.value as "en" | "th")}
+            className="border rounded p-1 text-black mt-2"
+            defaultValue={i18n.language}
           >
-            <FiUser className="mr-1" />
-          </button>
+            <option value="th">ภาษาไทย</option>
+            <option value="en">ENGLISH</option>
+          </select>
         </div>
       )}
     </nav>

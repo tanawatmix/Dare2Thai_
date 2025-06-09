@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import './i18n';
 
 import HomeUI from "./../src/views/Home_ui";
 import LoginUI from "./../src/views/Login_ui";
@@ -27,6 +27,7 @@ function App() {
           {/* <Route path="/chat" element={<ChatUI />} /> */}
           {/* <Route path="/create" element={<CreatePostUI />} /> */}
         </Routes>
+        
       </BrowserRouter>
     </>
   );

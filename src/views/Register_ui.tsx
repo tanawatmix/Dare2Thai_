@@ -1,15 +1,49 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bg from "./assets/bg2.jpg";
+// import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [lang, setLang] = useState<"th" | "en">("th");
+
+  const translations = {
+    th: {
+      title: "เข้าสู่ระบบ",
+      email: "อีเมล",
+      password: "รหัสผ่าน",
+      username: "ชื่อผู้ใช้",
+      conpassword: "ยืนยันรหัสผ่าน",
+      login: "เข้าสู่ระบบ",
+      haveAccount: "มีบัญชีแล้ว?",
+      register: "เข้าสู่ระบบ",
+      home: "หน้าแรก",
+      success: "✅ เข้าสู่ระบบสำเร็จ!",
+      fillAll: "กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน",
+    },
+    en: {
+      title: "Register",
+      email: "Email",
+      password: "Password",
+      username: "Username",
+      conpassword: "confirmPassword",
+      login: "Register",
+      haveAccount: "already have an account?",
+      register: "login",
+      home: "Home",
+      success: "✅ Login successful!",
+      fillAll: "Please enter both email and password.",
+    },
+  };
+
+  const t = translations[lang];
+  // const navigate = useNavigate();
 
   const handleRegister = () => {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-      window.location.href = "/login"; 
+      window.location.href = "/login";
     }, 1000); // แสดง 2 วินาทีก่อนเปลี่ยนหน้า
   };
 
@@ -17,23 +51,29 @@ const Login: React.FC = () => {
     <div
       className=" bg-fixed bg-cover min-h-screen"
       style={{ backgroundImage: `url(${bg})` }}
-      
-    > 
-
+    >
       <div className="relative  min-h-screen flex items-center justify-center px-4 ">
-        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full">
+        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full relative">
+          <div className="absolute top-2 right-4">
+            <button
+              className="text-sm text-blue-600 hover:underline"
+              onClick={() => setLang(lang === "th" ? "en" : "th")}
+            >
+              {lang === "th" ? "EN" : "ไทย"}
+            </button>
+          </div>
           <button
             className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition"
             onClick={() => (window.location.href = "/")}
           >
-            Home
+            {t.home}
           </button>
           <h3 className="text-2xl font-extrabold text-pink-500  ml-2 mb-6 text-center">
-            Register
+            {t.title}
           </h3>
           <div>
             <label htmlFor="email" className="block mb-2">
-              Email
+              {t.email}
             </label>
             <input
               type="email"
@@ -43,7 +83,7 @@ const Login: React.FC = () => {
             />
 
             <label htmlFor="UserName" className="block mb-2">
-              UserName
+              {t.username}  
             </label>
             <input
               type="UserName"
@@ -53,7 +93,7 @@ const Login: React.FC = () => {
             />
 
             <label htmlFor="password" className="block mb-2">
-              Password
+              {t.password}
             </label>
             <input
               type="password"
@@ -63,7 +103,7 @@ const Login: React.FC = () => {
             />
 
             <label htmlFor="ConfirmPassword" className="block mb-2">
-              ConfirmPassword
+              {t.conpassword}
             </label>
             <input
               type="ConfirmPassword"
@@ -77,16 +117,16 @@ const Login: React.FC = () => {
             className="bg-primary text-black border border-blue-400 font-bold p-3 rounded hover:bg-secondary hover:text-white w-full transition "
             onClick={handleRegister}
           >
-            Register
+            {t.login}
           </button>
 
           <p>
-            Already have an account?
+            {t.haveAccount}{" "}
             <span
               className=" font-extrabold text-pink-500  cursor-pointer hover:text-secondary "
               onClick={() => (window.location.href = "/login")}
             >
-              Login
+              {t.register}
             </span>
           </p>
         </div>
@@ -111,7 +151,6 @@ const Login: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
-
     </div>
   );
 };

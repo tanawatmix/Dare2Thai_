@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#FFFF', // Blue
-        secondary: '#eba3ff', // Yellow
-        accent: '#eba3ff', // Red
-        neutral: '#374151', // Gray
+        primary: '#A8D8EA', // Blue
+        secondary: '#AA96DA', // Yellow
+        accent: '#FCBAD3', // Red
+        neutral: '#FFFFD2', // Gray
         'base-100': '#FFFFFF', // White
       },
       fontFamily: {

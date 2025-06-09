@@ -141,7 +141,8 @@ const PostPage = () => {
 
   return (
     <div className="relative bg-fixed bg-cover min-h-screen "
-      style={{ backgroundImage: `url(${bg})` }}>
+      style={{ backgroundImage: `url(${bg})` }}
+      >
       <Navbar />
 
       <div className="p-20">
@@ -220,7 +221,7 @@ const PostPage = () => {
       </Drawer>
 
       {/* ✅ โพสต์ */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 p-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2 p-4">
         {currentPosts.map((post) => (
           <PostCard
             key={post.postId}

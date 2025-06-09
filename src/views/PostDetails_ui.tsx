@@ -31,13 +31,13 @@ const PostDetailsUI = () => {
           {/* ปุ่มไปหน้าแชท */}
           <button
             onClick={() => navigate(`/chat/${postId}`, { state: { title } })}
-            className="mt-6 w-full border border-blue-400 bg-primary hover:bg-pink-600 text-black py-2 rounded"
+            className="mt-6 w-full border border-blue-400 bg-primary hover:bg-accent text-black py-2 rounded"
           >
             พูดคุย
           </button>
           <button
             onClick={() => navigate("/member")}
-            className="mt-2 w-full border border-blue-400 bg-primary hover:bg-pink-600 text-gray-800 py-2 rounded"
+            className="mt-2 w-full border border-blue-400 bg-primary hover:bg-neutral text-gray-800 py-2 rounded"
           >
             กลับไปหน้าก่อนหน้า
           </button>
