@@ -1,31 +1,48 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import bg from "./assets/grass.jpg";
+import bg from "./assets/bg2.jpg";
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
 
+
+
   const handleLogin = () => {
+    
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
       window.location.href = "/home";
     }, 1000); // แสดง 2 วินาทีก่อนเปลี่ยนหน้า
+    // ✅ เก็บสถานะและข้อมูลผู้ใช้
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: "123",
+        username: "somchai",
+        email: "somchai@example.com",
+        role: "USER", // หรือเปลี่ยนตามบทบาทที่ต้องการ
+      })
+    );
+
+    setShowSuccess(true);
+
+    setTimeout(() => {
+      setShowSuccess(false);
+      window.location.href = "/home";
+    }, 1000);
   };
 
   return (
     <div
       className=" bg-fixed bg-cover min-h-screen"
       style={{ backgroundImage: `url(${bg})` }}
-      
     >
-      
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
-
       <div className="relative min-h-screen flex items-center justify-center px-4 ">
         <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full">
           <button
-            className="bg-primary text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition" 
+            className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4  transition"
             onClick={() => (window.location.href = "/")}
           >
             Home
@@ -56,7 +73,7 @@ const Login: React.FC = () => {
           </div>
 
           <button
-            className="bg-primary text-black font-bold p-3 rounded hover:bg-secondary hover:text-white w-full  transition"
+            className="bg-primary text-black font-bold p-3 border border-blue-400 rounded hover:bg-secondary hover:text-white w-full  transition"
             onClick={handleLogin}
           >
             Login
@@ -93,7 +110,6 @@ const Login: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
-
     </div>
   );
 };

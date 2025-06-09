@@ -1,8 +1,9 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
 import pic from "./assets/picture.png";
 import send from "./assets/send.png";
+import bg from "./assets/bg2.jpg"
 
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
@@ -16,7 +17,7 @@ const ChatUI = () => {
   const location = useLocation();
   const title = location.state?.title ?? "ไม่ทราบชื่อโพสต์";
 
-  const { postId } = useParams();
+  // const { postId } = useParams();
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -43,7 +44,8 @@ const ChatUI = () => {
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 flex flex-col min-w-screen">
+    <div className="min-h-screen flex flex-col min-w-screen"
+      style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}>
       <Navbar />
 
       <div className="flex-grow px-4 py-20 max-w-2xl mx-auto w-full">
@@ -114,7 +116,7 @@ const ChatUI = () => {
 
         <button
           onClick={() => navigate(-1)}
-          className="mt-6 w-full bg-gray-200 hover:bg-gray-300 text-black py-2 rounded"
+          className="mt-6 w-full bg-white font-bold hover:bg-secondary hover:text-white text-black py-2 rounded"
         >
           กลับ
         </button>

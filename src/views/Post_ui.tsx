@@ -9,6 +9,7 @@ import Drawer from "@mui/material/Drawer";
 import postImage from "./assets/nay.jpg";
 import postImage2 from "./assets/heejin.jpg";
 import postImage3 from "./assets/twice1.png";
+import bg from "./assets/bg2.jpg";
 
 const PostPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -139,7 +140,8 @@ const PostPage = () => {
   };
 
   return (
-    <div className="relative bg-fixed bg-cover min-h-screen bg-gradient-to-t from-pink-100 to-white">
+    <div className="relative bg-fixed bg-cover min-h-screen "
+      style={{ backgroundImage: `url(${bg})` }}>
       <Navbar />
 
       <div className="p-20">

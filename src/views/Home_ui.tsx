@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 
 import th from "./assets/thai.png";
 // import logo from "./assets/Twice.png";
-import bg from "./assets/grass.jpg";
+import bg from "./assets/bg2.jpg";
 
 const HomeUI = () => {
   return (
@@ -12,9 +12,6 @@ const HomeUI = () => {
       className="relative bg-fixed bg-cover min-h-screen"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      {/* พื้นหลังจาง */}
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
-
       {/* เนื้อหาหลัก */}
       <div className="relative z-10">
         <Navbar />

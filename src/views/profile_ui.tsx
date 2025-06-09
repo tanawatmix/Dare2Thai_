@@ -2,9 +2,9 @@ import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop";
-import getCroppedImg from "./utils/CropImage";
+import getCroppedImg from "./utils/cropImage"; // ฟังก์ชันสำหรับครอปภาพ
 import Profile from "./assets/nay.jpg";
-import bg from "./assets/grass.jpg";
+import bg from "./assets/bg2.jpg";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import Slider from "@mui/material/Slider";
@@ -144,6 +144,12 @@ const ProfileUI = () => {
             onClick={handleSaveEdit}
           >
             Save
+          </button>
+          <button
+            className="bg-white hover:bg-secondary hover:text-white text-black font-bold px-6 py-2 ml-2 rounded transition border border-gray-400 "
+            onClick={() => (window.location.href = "/home")}
+          >
+            back
           </button>
         </div>
       </div>

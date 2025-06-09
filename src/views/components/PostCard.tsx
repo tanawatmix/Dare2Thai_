@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+// import bg from "./../assets/bg2.jpg"
+
 interface PostCardProps {
   Image: string;
   title: string;
