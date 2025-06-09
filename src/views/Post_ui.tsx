@@ -146,9 +146,9 @@ const PostPage = () => {
         <div className="flex flex-col md:flex-row items-center justify-between px-8 pt-8">
           <button
             onClick={() => alert("โพสต์")}
-            className="flex items-center bg-primary text-black px-4 py-2 rounded mb-4 md:mb-0 hover:bg-secondary hover:text-white transition"
+            className="flex border-2 border-dashed border-blue-400 rounded-lg items-center bg-primary text-black px-4 py-2 rounded mb-4 md:mb-0 hover:bg-secondary hover:text-white transition"
           >
-            <FaPlus className="mr-3" />
+            <FaPlus className="mr-3 " />
             โพสต์
           </button>
           <FaSearch

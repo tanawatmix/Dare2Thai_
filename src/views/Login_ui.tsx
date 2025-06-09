@@ -1,25 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import bg from "./assets/grass.jpg";
 
-import Footer from "./components/Footer";
-import Navbar from "./components/navbar";
-
 const Login: React.FC = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleLogin = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+      window.location.href = "/home";
+    }, 1000); // แสดง 2 วินาทีก่อนเปลี่ยนหน้า
+  };
+
   return (
     <div
-      className="relative bg-fixed bg-cover min-h-screen"
+      className=" bg-fixed bg-cover min-h-screen"
       style={{ backgroundImage: `url(${bg})` }}
+      
     >
-      <Navbar />
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="ring-4 rounded-lg shadow-lg p-10 max-w-md w-full  ">
+      
+      <div className="absolute inset-0 bg-black bg-opacity-40" />
+
+      <div className="relative min-h-screen flex items-center justify-center px-4 ">
+        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full">
           <button
-            className="bg-primary text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4"
+            className="bg-primary text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition" 
             onClick={() => (window.location.href = "/")}
           >
             Home
           </button>
-          <h3 className=" text-3xl font-bold text-center text-blue-400 mb-6">
+          <h3 className="text-2xl font-extrabold text-pink-500  ml-2 mb-6 text-center">
             Login
           </h3>
           <div>
@@ -45,37 +56,46 @@ const Login: React.FC = () => {
           </div>
 
           <button
-            className=" bg-primary text-black font-bold p-3 rounded hover:bg-secondary hover:text-white w-full mb-4"
-            onClick={() => (window.location.href = "/home")}
+            className="bg-primary text-black font-bold p-3 rounded hover:bg-secondary hover:text-white w-full  transition"
+            onClick={handleLogin}
           >
             Login
           </button>
 
-          <p className="text-center">
+          <p>
             Don't have an account?
             <span
-              className="text-primary font-bold cursor-pointer hover:text-secondary ml-1"
+              className="font-extrabold text-pink-500 cursor-pointer hover:text-secondary transition "
               onClick={() => (window.location.href = "/register")}
             >
               Register
             </span>
           </p>
         </div>
+
+        {/* แจ้งเตือน Login สำเร็จ */}
+        <AnimatePresence>
+          {showSuccess && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 10, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-10 bg-primary border-2 border-dashed border-black text-white bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 font-bold px-6 py-3 rounded-lg shadow-lg text-center"
+            >
+              ✅ เข้าสู่ระบบสำเร็จ!
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="h-1 bg-white mt-3 rounded-lg"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      <Footer />
+
     </div>
   );
 };
 
 export default Login;
-
-// const login_ui = () => {
-//   return (
-//     <div>
-//       <h4 className="text-6xl font-extrabold  text-accent bottom-0 left-0">HOME</h4>
-//       di
-//     </div>
-//   )
-// }
-
-// export default login_ui

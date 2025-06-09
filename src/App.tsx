@@ -7,6 +7,7 @@ import RegisterUI from "./../src/views/Register_ui";
 import MemberUI from "./../src/views/Post_ui";
 import PostDetailsUI from "./../src/views/PostDetails_ui";
 import ChatUI from "./../src/views/Chat_ui";
+import ProfileUI from "./../src/views/profile_ui";
 // import CreatePostUI from "./../src/views/CreatePost_ui";
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route path="/member" element={<MemberUI />} />
           <Route path="/post/:postId" element={<PostDetailsUI />} />
           <Route path="/chat/:postId" element={<ChatUI />} />
+          <Route path="/profile" element={<ProfileUI />} />
+          {/* Redirect to home if no route matches */}
           {/* <Route path="/chat" element={<ChatUI />} /> */}
           {/* <Route path="/create" element={<CreatePostUI />} /> */}
         </Routes>

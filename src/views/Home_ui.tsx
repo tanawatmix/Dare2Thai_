@@ -2,7 +2,7 @@ import Navbar from "./components/navbar";
 import Card from "./../views/components/Card";
 import Footer from "./components/Footer";
 
-import th from "./assets/thai.png"
+import th from "./assets/thai.png";
 // import logo from "./assets/Twice.png";
 import bg from "./assets/grass.jpg";
 
@@ -17,7 +17,7 @@ const HomeUI = () => {
 
       {/* เนื้อหาหลัก */}
       <div className="relative z-10">
-        <Navbar/>
+        <Navbar />
 
         <div className="flex  flex-wrap justify-center items-center p-4">
           <Card
@@ -38,7 +38,6 @@ const HomeUI = () => {
 ในช่วงสงครามโลกครั้งที่ 2 ไทยได้เข้าร่วมในฝ่ายอักษะกับญี่ปุ่น ก่อนจะหันไปสู่ความสัมพันธ์กับฝ่ายสัมพันธมิตรหลังสงครามจบ จากนั้นไทยได้เติบโตทางเศรษฐกิจอย่างต่อเนื่องในช่วงหลังปี 2500 โดยมีบทบาทสำคัญในภูมิภาคเอเชียตะวันออกเฉียงใต้
 
 ประเทศไทยปัจจุบันเป็น ราชอาณาจักรภายใต้รัฐธรรมนูญ มีพระมหากษัตริย์เป็นประมุข โดยมี พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว (รัชกาลที่ 10) เป็นพระมหากษัตริย์องค์ปัจจุบัน ประเทศไทยยังคงมีบทบาทสำคัญในด้านเศรษฐกิจ การท่องเที่ยว และการเมืองในภูมิภาคเอเชียตะวันออกเฉียงใต้"
-           
           />
         </div>
         <Footer />

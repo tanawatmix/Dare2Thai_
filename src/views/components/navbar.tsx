@@ -12,7 +12,8 @@ const Navbar: React.FC = () => {
       <div className="flex items-center justify-between b">
         <div className="flex items-center">
           <img src={logo} alt="logo" className="h-10 w-10" />
-          <span className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent ml-2">
+          <span className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent ml-2 cursor-pointer"
+          onClick={() => (window.location.href = "/home")}>
             Dare2Thai
           </span>
         </div>
