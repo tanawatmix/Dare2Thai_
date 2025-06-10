@@ -3,19 +3,19 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-black py-1 border-t bottom-0 w-45  ">
-      <div className="container mx-auto px-3 flex-col md:flex-row justify-between items-center">
+    <footer className="dark:bg-secondary bg-primary mt-auto border-t transition duration-500 dark:border-white">
+      <div className="container  px-3 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="md-flex mb-1">
-          <h2 className="text-20 font-extrabold">Dare2Thai</h2>
-          <p className="text-sm">© 2025 All rights reserved.</p>
-          <p className="text-sm">contact us : 088-888-888</p>
+          <h2 className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent">Dare2Thai</h2>
+          <p className="text-sm text-pink-400">© 2025 All rights reserved.</p>
+          <p className="text-sm text-pink-400">contact us : 088-888-888</p>
         </div>
         <div>
           <a
             href="https://github.com/tanawatmix"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center hover:text-sky-400 transition-colors"
+            className="hover:text-secondary text-pink-400 transition-colors"
           >
             <FaGithub className="text-xl hover:text-sky-400" />
           </a>

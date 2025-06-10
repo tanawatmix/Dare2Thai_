@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../themeContext";
 
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
@@ -9,7 +11,7 @@ import Drawer from "@mui/material/Drawer";
 import postImage from "./assets/nay.jpg";
 import postImage2 from "./assets/heejin.jpg";
 import postImage3 from "./assets/twice1.png";
-import bg from "./assets/bg2.jpg";
+// import bg from "./assets/bg2.jpg";
 
 const PostPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -128,6 +130,7 @@ const PostPage = () => {
     );
   });
 
+  const { darkMode } = useContext(ThemeContext);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -140,167 +143,188 @@ const PostPage = () => {
   };
 
   return (
-    <div className="relative bg-fixed bg-cover min-h-screen "
-      style={{ backgroundImage: `url(${bg})` }}
+    <div className="bg-white text-black">
+      <div
+        className={`relative bg-fixed bg-center min-h-screen bg-cover transition duration-500 ${
+          darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+        }`}
+        style={{
+          backgroundImage: {
+            "light-bg":
+              "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
+            "dark-bg":
+              "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
+          }[darkMode ? "dark-bg" : "light-bg"],
+        }}
       >
-      <Navbar />
+        <Navbar />
 
-      <div className="p-20">
-        <div className="flex flex-col md:flex-row items-center justify-between px-8 pt-8">
-          <button
-            onClick={() => alert("โพสต์")}
-            className="flex border-2 border-dashed border-blue-400 rounded-lg items-center bg-primary text-black px-4 py-2 rounded mb-4 md:mb-0 hover:bg-secondary hover:text-white transition"
-          >
-            <FaPlus className="mr-3 " />
-            โพสต์
-          </button>
-          <FaSearch
-            className="text-gray-700 cursor-pointer text-2xl"
-            onClick={toggleDrawer(true)}
-          />
-        </div>
-      </div>
-
-      {/* ✅ Drawer */}
-      <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer(false)}>
-        <div className="w-[320px] p-6 space-y-4 bg-white h-full overflow-y-auto">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">ค้นหาร้าน</h2>
-
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              ประเภทสถานที่
-            </label>
-            <select
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-300"
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-            >
-              <option value="">ทั้งหมด</option>
-              {placeTypes.map((type, i) => (
-                <option key={i} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              จังหวัด
-            </label>
-            <select
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-300"
-              value={selectedProvince}
-              onChange={(e) => setSelectedProvince(e.target.value)}
-            >
-              <option value="">ทั้งหมด</option>
-              {provinces.map((province, i) => (
-                <option key={i} value={province}>
-                  {province}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            onClick={handleSearch}
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded shadow"
-          >
-            ค้นหา
-          </button>
-          <button
-            onClick={() => {
-              setSelectedType("");
-              setSelectedProvince("");
-            }}
-            className="text-sm underline text-pink-600 hover:text-pink-800"
-          >
-            ล้างตัวกรอง
-          </button>
-        </div>
-      </Drawer>
-
-      {/* ✅ โพสต์ */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2 p-4">
-        {currentPosts.map((post) => (
-          <PostCard
-            key={post.postId}
-            Image={post.image}
-            title={post.title}
-            type={post.type}
-            province={post.province}
-            postId={post.postId}
-            description={post.description}
-          />
-        ))}
-      </div>
-
-      {/* ✅ Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center pb-12 gap-2">
-          {/* << ปุ่มย้อนกลับหน้าแรก */}
-          {currentPage > 1 && (
+        <div className="p-20">
+          <div className="flex flex-col md:flex-row items-center justify-between px-8 pt-8">
             <button
-              onClick={() => setCurrentPage(1)}
-              className="px-2 py-1 border rounded hover:bg-pink-100"
+              onClick={() => alert("โพสต์")}
+              className="flex border-2 border border-pink-400 rounded-lg items-center bg-primary text-black px-4 py-2 rounded mb-4 md:mb-0 hover:bg-secondary hover:text-white transition-all duration-500"
             >
-              {"<<"}
+              <FaPlus className="mr-3 " />
+              โพสต์
             </button>
-          )}
+            <FaSearch
+              className="text-secondary cursor-pointer text-2xl dark:text-white dark:hover:text-pink-400 hover:text-pink-400 transition-all duration-500"
+              onClick={toggleDrawer(true)}
+            />
+          </div>
+        </div>
 
-          {/* < ปุ่มย้อนหน้า */}
-          {currentPage > 1 && (
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="px-2 py-1 border rounded hover:bg-pink-100"
-            >
-              {"<"}
-            </button>
-          )}
+        {/* ✅ Drawer */}
+        <Drawer
+          anchor="right"
+          open={isDrawerOpen}
+          onClose={toggleDrawer(false)}
+        >
+          <div className="w-[320px] p-6 space-y-4 bg-primary dark:bg-secondary h-full overflow-y-auto">
+            <h2 className="text-2xl font-bold text-secondary dark:text-primary mb-2">ค้นหาร้าน</h2>
 
-          {/* แสดงเฉพาะ 5 หน้า */}
-          {Array.from({ length: 5 }, (_, i) => {
-            const pageNumber = i + Math.max(1, currentPage - 2);
-            if (pageNumber > totalPages) return null;
-            return (
-              <button
-                key={pageNumber}
-                onClick={() => setCurrentPage(pageNumber)}
-                className={`px-4 py-2 rounded ${
-                  currentPage === pageNumber
-                    ? "bg-pink-500 text-white"
-                    : "bg-white border border-gray-300"
-                } hover:bg-pink-400 hover:text-white transition`}
+            <div>
+              <label className="block mb-1 text-sm font-medium text-secondary dark:text-primary ">
+                ประเภทสถานที่
+              </label>
+              <select
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-300"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
               >
-                {pageNumber}
-              </button>
-            );
-          })}
+                <option value="">ทั้งหมด</option>
+                {placeTypes.map((type, i) => (
+                  <option key={i} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* > ปุ่มถัดไป */}
-          {currentPage < totalPages && (
-            <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              className="px-2 py-1 border rounded hover:bg-pink-100"
-            >
-              {">"}
-            </button>
-          )}
+            <div>
+              <label className="block mb-1 text-sm font-medium text-secondary dark:text-primary ">
+                จังหวัด
+              </label>
+              <select
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-300"
+                value={selectedProvince}
+                onChange={(e) => setSelectedProvince(e.target.value)}
+              >
+                <option value="">ทั้งหมด</option>
+                {provinces.map((province, i) => (
+                  <option key={i} value={province}>
+                    {province}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* >> ปุ่มไปหน้าสุดท้าย */}
-          {currentPage < totalPages && (
             <button
-              onClick={() => setCurrentPage(totalPages)}
-              className="px-2 py-1 border rounded hover:bg-pink-100"
+              onClick={handleSearch}
+              className="w-full bg-pink-400 hover:bg-secondary dark:hover:bg-primary hover:dark:text-secondary text-white font-semibold text-xl py-2 rounded shadow"
             >
-              {">>"}
+              ค้นหา
             </button>
+            <button
+              onClick={() => {
+                setSelectedType("");
+                setSelectedProvince("");
+              }}
+              className="text-sm underline text-pink-400 dark:hover:text-primary hover:text-secondary"
+            >
+              ล้างตัวกรอง
+            </button>
+          </div>
+        </Drawer>
+
+        {/* ✅ โพสต์ */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 p-8">
+          {currentPosts.length === 0 ? (
+            <div className="col-span-full text-center text-gray-500 text-xl py-16">
+              ไม่พบโพสต์ที่ตรงกับตัวกรอง
+            </div>
+          ) : (
+            currentPosts.map((post) => (
+              <PostCard
+                key={post.postId}
+                Image={post.image}
+                title={post.title}
+                type={post.type}
+                province={post.province}
+                postId={post.postId}
+                description={post.description}
+              />
+            ))
           )}
         </div>
-      )}
 
+        {/* ✅ Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center pb-12 gap-2 ">
+            {/* << ปุ่มย้อนกลับหน้าแรก */}
+            {currentPage > 1 && (
+              <button
+                onClick={() => setCurrentPage(1)}
+                className="px-2 py-1 rounded transition-all duration-300 hover:bg-pink-400 hover:text-white"
+              >
+                {"<<"}
+              </button>
+            )}
+
+            {/* < ปุ่มย้อนหน้า */}
+            {currentPage > 1 && (
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                className="px-2 py-1 rounded transition-all duration-300 hover:bg-pink-400 hover:text-white"
+              >
+                {"<"}
+              </button>
+            )}
+
+            {/* แสดงเฉพาะ 5 หน้า */}
+            {Array.from({ length: 6 }, (_, i) => {
+              const pageNumber = i + Math.max(1, currentPage - 2);
+              if (pageNumber > totalPages) return null;
+              return (
+                <button
+                  key={pageNumber}
+                  onClick={() => setCurrentPage(pageNumber)}
+                  className={`px-4 py-2 rounded ${
+                    currentPage === pageNumber
+                      ? "bg-primary border border-pink-400 text-secondary "
+                      : "bg-primary border text-secondary hover:border-pink-400 $" 
+                  } hover:bg-pink-400 text-secondary hover:text-primary transition duration-300 dark:bg-secondary dark:text-primary dark:hover:bg-pink-400`}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+
+            {/* > ปุ่มถัดไป */}
+            {currentPage < totalPages && (
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                className="px-2 py-1 rounded transition-all duration-300 hover:bg-pink-400 hover:text-white"
+              >
+                {">"}
+              </button>
+            )}
+
+            {/* >> ปุ่มไปหน้าสุดท้าย */}
+            {currentPage < totalPages && (
+              <button
+                onClick={() => setCurrentPage(totalPages)}
+                className="px-2 py-1 rounded transition-all duration-300 hover:bg-pink-400 hover:text-white"
+              >
+                {">>"}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
       <Footer />
     </div>
   );

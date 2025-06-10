@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [lang, setLang] = useState<"th" | "en">("th");
@@ -41,6 +42,10 @@ const Login: React.FC = () => {
     if (!email || !password) {
       alert(t.fillAll);
       return;
+    }else {
+      setShowError(true);
+      setShowSuccess(false);
+      setTimeout(() => setShowError(false), 3000);
     }
 
     localStorage.setItem("isLoggedIn", "true");
@@ -53,13 +58,16 @@ const Login: React.FC = () => {
         role: "USER",
       })
     );
-
     setShowSuccess(true);
+    setShowError(false);
 
     setTimeout(() => {
       setShowSuccess(false);
       navigate("/home");
     }, 1000);
+
+
+
   };
 
   return (
@@ -70,9 +78,9 @@ const Login: React.FC = () => {
       <div className="relative min-h-screen flex items-center justify-center px-4">
         <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full relative">
           {/* ปุ่มเปลี่ยนภาษา */}
-          <div className="absolute top-2 right-4">
+          <div className="absolute top-2 right-4 border-2 border-secondary rounded hover:bg-secondary hover:text-white ">
             <button
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-blue-600 hover:bg-secondary hover:text-white py-1 px-5"
               onClick={() => setLang(lang === "th" ? "en" : "th")}
             >
               {lang === "th" ? "EN" : "ไทย"}
@@ -150,6 +158,18 @@ const Login: React.FC = () => {
                 transition={{ duration: 1, ease: "linear" }}
                 className="h-1 bg-white mt-3 rounded-lg"
               />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showError && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-10 bg-red-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg text-center"
+            >
+              {t.fillAll}
             </motion.div>
           )}
         </AnimatePresence>

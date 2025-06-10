@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import './i18n';
+import { ThemeProvider } from "./themeContext"; // สมมติ themeContext.tsx อยู่โฟลเดอร์ src
+import Navbar from "./views/components/navbar"; // สมมติ Navbar อยู่โฟลเดอร์นี้
 
 import HomeUI from "./../src/views/Home_ui";
 import LoginUI from "./../src/views/Login_ui";
@@ -8,12 +9,12 @@ import MemberUI from "./../src/views/Post_ui";
 import PostDetailsUI from "./../src/views/PostDetails_ui";
 import ChatUI from "./../src/views/Chat_ui";
 import ProfileUI from "./../src/views/profile_ui";
-// import CreatePostUI from "./../src/views/CreatePost_ui";
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<HomeUI />} />
@@ -23,13 +24,9 @@ function App() {
           <Route path="/post/:postId" element={<PostDetailsUI />} />
           <Route path="/chat/:postId" element={<ChatUI />} />
           <Route path="/profile" element={<ProfileUI />} />
-          {/* Redirect to home if no route matches */}
-          {/* <Route path="/chat" element={<ChatUI />} /> */}
-          {/* <Route path="/create" element={<CreatePostUI />} /> */}
         </Routes>
-        
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   );
 }
 

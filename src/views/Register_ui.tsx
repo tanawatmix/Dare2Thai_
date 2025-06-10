@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bg from "./assets/bg2.jpg";
+import { FaGoogle, FaFacebook,FaInstagram, FaTwitter } from "react-icons/fa";
 // import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
@@ -9,30 +10,46 @@ const Login: React.FC = () => {
 
   const translations = {
     th: {
-      title: "เข้าสู่ระบบ",
+      title: "ลงทะเบียน",
       email: "อีเมล",
       password: "รหัสผ่าน",
       username: "ชื่อผู้ใช้",
       conpassword: "ยืนยันรหัสผ่าน",
-      login: "เข้าสู่ระบบ",
+      login: "ลงทะเบียน",
       haveAccount: "มีบัญชีแล้ว?",
       register: "เข้าสู่ระบบ",
       home: "หน้าแรก",
       success: "✅ เข้าสู่ระบบสำเร็จ!",
       fillAll: "กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน",
+      enUserN: "กรอกชื่อผู้ใช้",
+      enPass: "กรอกรหัสผ่าน",
+      enMail: "กรอกอีเมล",
+      enConPass: "ยืนยันรหัสผ่านของคุณ",
+      RegisterGoo: "สมัครด้วย Google",
+      RegisterFace: "สมัครด้วย Facebook",
+      RegisterIns: "สมัครด้วย Instagram",
+      RegisterTwit: "สมัครด้วย Twitter",
     },
     en: {
       title: "Register",
       email: "Email",
       password: "Password",
       username: "Username",
-      conpassword: "confirmPassword",
+      conpassword: "ConfirmPassword",
       login: "Register",
       haveAccount: "already have an account?",
       register: "login",
       home: "Home",
       success: "✅ Login successful!",
       fillAll: "Please enter both email and password.",
+      enUserN: "Enter your username",
+      enPass: "Enter your password",
+      enMail: "Enter your email",
+      enConPass: "Confirm your password",
+      RegisterGoo: "Register with Google",
+      RegisterFace: "Register with Facebook",
+      RegisterIns: "Register with Instagram",
+      RegisterTwit: "Register with Twitter",
     },
   };
 
@@ -53,17 +70,17 @@ const Login: React.FC = () => {
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="relative  min-h-screen flex items-center justify-center px-4 ">
-        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full relative">
-          <div className="absolute top-2 right-4">
+        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-4 max-w-md w-full relative">
+          <div className="absolute border-2 border-secondary rounded  hover:bg-secondary  top-2 right-4">
             <button
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-blue-600 hover:bg-secondary hover:text-white py-1 px-5"
               onClick={() => setLang(lang === "th" ? "en" : "th")}
             >
               {lang === "th" ? "EN" : "ไทย"}
             </button>
           </div>
           <button
-            className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition"
+            className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition duration-300"
             onClick={() => (window.location.href = "/")}
           >
             {t.home}
@@ -79,17 +96,17 @@ const Login: React.FC = () => {
               type="email"
               id="email"
               className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder="Enter your email"
+              placeholder={t.enMail}
             />
 
             <label htmlFor="UserName" className="block mb-2">
-              {t.username}  
+              {t.username}
             </label>
             <input
               type="UserName"
               id="UserName"
               className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder="Enter your UserName"
+              placeholder={t.enUserN}
             />
 
             <label htmlFor="password" className="block mb-2">
@@ -99,7 +116,7 @@ const Login: React.FC = () => {
               type="password"
               id="password"
               className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder="Enter your password"
+              placeholder={t.enPass}
             />
 
             <label htmlFor="ConfirmPassword" className="block mb-2">
@@ -109,12 +126,12 @@ const Login: React.FC = () => {
               type="ConfirmPassword"
               id="ConfirmPassword"
               className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder="Enter your ConfirmPassword"
+              placeholder={t.enConPass}
             />
           </div>
 
           <button
-            className="bg-primary text-black border border-blue-400 font-bold p-3 rounded hover:bg-secondary hover:text-white w-full transition "
+            className="bg-primary text-black border border-blue-400 font-bold p-3 rounded hover:bg-secondary hover:text-white w-full transition duration-300"
             onClick={handleRegister}
           >
             {t.login}
@@ -129,6 +146,54 @@ const Login: React.FC = () => {
               {t.register}
             </span>
           </p>
+            <div className="flex gap-4 mt-2 ">
+              <button
+                className="flex text-sm items-center justify-center border border-gray-300 rounded p-2 hover:bg-secondary hover:text-white transition duration-300"
+                onClick={() => {
+                  // TODO: Implement Google registration logic here
+                  alert("Register with Google clicked");
+                }}
+                type="button"
+              >
+                <FaGoogle className="text-xl text-green-600 mr-2 " />
+                {t.RegisterGoo}
+              </button>
+              <button
+                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
+                onClick={() => {
+                  // TODO: Implement Facebook registration logic here
+                  alert("Register with Facebook clicked");
+                }}
+                type="button"
+              >
+                <FaFacebook className="text-xl text-blue-600 mr-2" />
+                {t.RegisterFace}
+              </button>
+            </div>
+            <div className="flex gap-4 mt-1">
+              <button
+                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
+                onClick={() => {
+                  // TODO: Implement Google registration logic here
+                  alert("Register with Instagram clicked");
+                }}
+                type="button"
+              >
+                <FaInstagram className="text-xl text-pink-600 mr-2" />
+                {t.RegisterIns}
+              </button>
+              <button
+                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
+                onClick={() => {
+                  // TODO: Implement Facebook registration logic here
+                  alert("Register with Twitter clicked");
+                }}
+                type="button"
+              >
+                <FaTwitter className="text-xl text-blue-400 mr-2" />
+                {t.RegisterTwit}
+              </button>
+            </div>
         </div>
 
         {/* แจ้งเตือน Login สำเร็จ */}

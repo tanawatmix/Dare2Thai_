@@ -3,10 +3,10 @@ import { useState, useRef, useEffect } from "react";
 
 import pic from "./assets/picture.png";
 import send from "./assets/send.png";
-import bg from "./assets/bg2.jpg"
+// import bg from "./assets/bg2.jpg"
 
 import Navbar from "./components/navbar";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 type Message = {
   type: "text" | "image";
@@ -44,14 +44,14 @@ const ChatUI = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col min-w-screen"
-      style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}>
+    <div className="min-h-screen flex flex-col min-w-screen bg-fixed bg-center bg-cover"
+    style={{ backgroundImage: `url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)` }}>
       <Navbar />
 
       <div className="flex-grow px-4 py-20 max-w-2xl mx-auto w-full">
         <h1 className="text-2xl font-bold mb-4">แชทสำหรับโพสต์: {title}</h1>
 
-        <div className="bg-white rounded shadow h-96 overflow-y-auto p-4 mb-4">
+        <div className="bg-white rounded shadow border border-pink-500 h-96 overflow-y-auto p-4 mb-4">
           {messages.length === 0 ? (
             <p className="text-gray-500 text-center">ยังไม่มีข้อความ</p>
           ) : (
@@ -82,7 +82,7 @@ const ChatUI = () => {
             placeholder="พิมพ์ข้อความ..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-grow p-2 border border-gray-300 rounded"
+            className="flex-grow p-2 border border-pink-500 rounded"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleSend();
@@ -116,13 +116,13 @@ const ChatUI = () => {
 
         <button
           onClick={() => navigate(-1)}
-          className="mt-6 w-full bg-white font-bold hover:bg-secondary hover:text-white text-black py-2 rounded"
+          className="mt-6 border border-pink-500 w-full bg-white font-bold hover:bg-secondary hover:text-white text-black py-2 rounded"
         >
           กลับ
         </button>
       </div>
 
-      <Footer />
+
     </div>
   );
 };
