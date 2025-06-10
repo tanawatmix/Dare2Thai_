@@ -36,7 +36,7 @@ const PostDetailsUI = () => {
             พูดคุย
           </button>
           <button
-            onClick={() => navigate("/member")}
+            onClick={() => navigate("/Posts")}
             className="mt-2 w-full border border-blue-400 bg-primary hover:bg-neutral text-gray-800 py-2 rounded"
           >
             กลับไปหน้าก่อนหน้า

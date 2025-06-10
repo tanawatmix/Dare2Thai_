@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import bg from "./assets/bg2.jpg";
-import { FaGoogle, FaFacebook,FaInstagram, FaTwitter } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "./../themeContext";
+import { FaGoogle, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [lang, setLang] = useState<"th" | "en">("th");
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const translations = {
     th: {
@@ -35,13 +35,13 @@ const Login: React.FC = () => {
       email: "Email",
       password: "Password",
       username: "Username",
-      conpassword: "ConfirmPassword",
+      conpassword: "Confirm Password",
       login: "Register",
-      haveAccount: "already have an account?",
-      register: "login",
+      haveAccount: "Already have an account?",
+      register: "Login",
       home: "Home",
-      success: "✅ Login successful!",
-      fillAll: "Please enter both email and password.",
+      success: "✅ Registration successful!",
+      fillAll: "Please enter all fields.",
       enUserN: "Enter your username",
       enPass: "Enter your password",
       enMail: "Enter your email",
@@ -54,158 +54,211 @@ const Login: React.FC = () => {
   };
 
   const t = translations[lang];
-  // const navigate = useNavigate();
 
   const handleRegister = () => {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
       window.location.href = "/login";
-    }, 1000); // แสดง 2 วินาทีก่อนเปลี่ยนหน้า
+    }, 1200);
   };
 
   return (
     <div
-      className=" bg-fixed bg-cover min-h-screen"
-      style={{ backgroundImage: `url(${bg})` }}
+      className="bg-fixed bg-cover min-h-screen"
+      style={{
+        backgroundImage: {
+          "light-bg":
+            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
+          "dark-bg":
+            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
+        }[darkMode ? "dark-bg" : "light-bg"],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="relative  min-h-screen flex items-center justify-center px-4 ">
-        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-4 max-w-md w-full relative">
-          <div className="absolute border-2 border-secondary rounded  hover:bg-secondary  top-2 right-4">
-            <button
-              className="text-sm text-blue-600 hover:bg-secondary hover:text-white py-1 px-5"
-              onClick={() => setLang(lang === "th" ? "en" : "th")}
-            >
-              {lang === "th" ? "EN" : "ไทย"}
-            </button>
-          </div>
-          <button
-            className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition duration-300"
-            onClick={() => (window.location.href = "/")}
-          >
-            {t.home}
-          </button>
-          <h3 className="text-2xl font-extrabold text-pink-500  ml-2 mb-6 text-center">
-            {t.title}
-          </h3>
-          <div>
-            <label htmlFor="email" className="block mb-2">
-              {t.email}
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder={t.enMail}
-            />
-
-            <label htmlFor="UserName" className="block mb-2">
-              {t.username}
-            </label>
-            <input
-              type="UserName"
-              id="UserName"
-              className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder={t.enUserN}
-            />
-
-            <label htmlFor="password" className="block mb-2">
-              {t.password}
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder={t.enPass}
-            />
-
-            <label htmlFor="ConfirmPassword" className="block mb-2">
-              {t.conpassword}
-            </label>
-            <input
-              type="ConfirmPassword"
-              id="ConfirmPassword"
-              className="w-full p-3 border border-gray-300 rounded mb-2"
-              placeholder={t.enConPass}
-            />
-          </div>
-
-          <button
-            className="bg-primary text-black border border-blue-400 font-bold p-3 rounded hover:bg-secondary hover:text-white w-full transition duration-300"
-            onClick={handleRegister}
-          >
-            {t.login}
-          </button>
-
-          <p>
-            {t.haveAccount}{" "}
-            <span
-              className=" font-extrabold text-pink-500  cursor-pointer hover:text-secondary "
-              onClick={() => (window.location.href = "/login")}
-            >
-              {t.register}
-            </span>
-          </p>
-            <div className="flex gap-4 mt-2 ">
+      <div className="relative min-h-screen flex items-center justify-center px-4">
+        <div className="border-2 bg-primary dark:bg-secondary border-blue-400 dark:border-pink-400 rounded-2xl shadow-2xl p-8 max-w-4xl w-full relative backdrop-blur-md flex flex-col md:flex-row gap-8">
+          {/* Left: Social Buttons */}
+          <div className="flex-1 flex flex-col justify-center items-center gap-6 border-r-0 md:border-r md:pr-8 border-blue-200">
+            <h3 className="text-xl font-bold text-gray-700 dark:text-gray-200 mb-2">
+              {lang === "th" ? "สมัครด้วย" : "Sign up with"}
+            </h3>
+            <div className="flex flex-col gap-4 w-full">
               <button
-                className="flex text-sm items-center justify-center border border-gray-300 rounded p-2 hover:bg-secondary hover:text-white transition duration-300"
-                onClick={() => {
-                  // TODO: Implement Google registration logic here
-                  alert("Register with Google clicked");
-                }}
+                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg p-3 bg-white/80 dark:bg-gray-800/80 hover:bg-pink-100 dark:hover:bg-pink-900 text-gray-700 dark:text-gray-200 font-semibold shadow transition w-full"
+                onClick={() => alert("Register with Google clicked")}
                 type="button"
               >
-                <FaGoogle className="text-xl text-green-600 mr-2 " />
+                <FaGoogle className="text-xl text-green-600" />
                 {t.RegisterGoo}
               </button>
               <button
-                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
-                onClick={() => {
-                  // TODO: Implement Facebook registration logic here
-                  alert("Register with Facebook clicked");
-                }}
+                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg p-3 bg-white/80 dark:bg-gray-800/80 hover:bg-blue-100 dark:hover:bg-blue-900 text-gray-700 dark:text-gray-200 font-semibold shadow transition w-full"
+                onClick={() => alert("Register with Facebook clicked")}
                 type="button"
               >
-                <FaFacebook className="text-xl text-blue-600 mr-2" />
+                <FaFacebook className="text-xl text-blue-600" />
                 {t.RegisterFace}
               </button>
-            </div>
-            <div className="flex gap-4 mt-1">
               <button
-                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
-                onClick={() => {
-                  // TODO: Implement Google registration logic here
-                  alert("Register with Instagram clicked");
-                }}
+                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg p-3 bg-white/80 dark:bg-gray-800/80 hover:bg-pink-100 dark:hover:bg-pink-900 text-gray-700 dark:text-gray-200 font-semibold shadow transition w-full"
+                onClick={() => alert("Register with Instagram clicked")}
                 type="button"
               >
-                <FaInstagram className="text-xl text-pink-600 mr-2" />
+                <FaInstagram className="text-xl text-pink-600" />
                 {t.RegisterIns}
               </button>
               <button
-                className=" flex text-sm items-center justify-center border border-gray-300 rounded p-4 hover:bg-secondary hover:text-white transition duration-300"
-                onClick={() => {
-                  // TODO: Implement Facebook registration logic here
-                  alert("Register with Twitter clicked");
-                }}
+                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg p-3 bg-white/80 dark:bg-gray-800/80 hover:bg-blue-100 dark:hover:bg-blue-900 text-gray-700 dark:text-gray-200 font-semibold shadow transition w-full"
+                onClick={() => alert("Register with Twitter clicked")}
                 type="button"
               >
-                <FaTwitter className="text-xl text-blue-400 mr-2" />
+                <FaTwitter className="text-xl text-blue-400" />
                 {t.RegisterTwit}
               </button>
             </div>
+          </div>
+          {/* Right: Form and Controls */}
+          <div className="flex-1 relative flex flex-col justify-center">
+            {/* Top right controls */}
+            <div className="absolute top-0 right-0 flex flex-col items-end gap-2 z-10">
+              <button
+                className="text-xs font-semibold py-1 px-4 rounded-full border border-blue-400 dark:border-pink-400 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-pink-400 hover:bg-blue-100 dark:hover:bg-pink-900 transition"
+                onClick={() => setLang(lang === "th" ? "en" : "th")}
+                aria-label="Switch language"
+              >
+                {lang === "th" ? "EN" : "ไทย"}
+              </button>
+              <button
+                onClick={toggleDarkMode}
+                className="flex items-center gap-2 text-xs font-semibold py-1 px-4 rounded-full border border-blue-400 dark:border-pink-400 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-pink-400 hover:bg-blue-100 dark:hover:bg-pink-900 transition"
+              >
+                {darkMode ? (
+                  <>
+                    <span>Light</span>
+                    <span role="img" aria-label="Light mode">
+                      ☀️
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span>Dark</span>
+                    <span role="img" aria-label="Dark mode">
+                      🌙
+                    </span>
+                  </>
+                )}
+              </button>
+            </div>
+            {/* Home Button */}
+            <button
+              className="bg-gradient-to-r from-blue-400 to-pink-400 text-white mt-4 py-2 rounded-full hover:from-pink-400 hover:to-orange-400 hover:text-white mb-6 font-semibold shadow transition duration-300 w-20 "
+              onClick={() => (window.location.href = "/")}
+            >
+              {t.home}
+            </button>
+            {/* Title */}
+            <h3 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-400 to-orange-400 mb-8 text-center drop-shadow">
+              {t.title}
+            </h3>
+            {/* Form */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleRegister();
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+                >
+                  {t.email}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white/80 dark:bg-gray-800/80 transition"
+                  placeholder={t.enMail}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="UserName"
+                  className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+                >
+                  {t.username}
+                </label>
+                <input
+                  type="text"
+                  id="UserName"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white/80 dark:bg-gray-800/80 transition"
+                  placeholder={t.enUserN}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+                >
+                  {t.password}
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white/80 dark:bg-gray-800/80 transition"
+                  placeholder={t.enPass}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="ConfirmPassword"
+                  className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+                >
+                  {t.conpassword}
+                </label>
+                <input
+                  type="password"
+                  id="ConfirmPassword"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 bg-white/80 dark:bg-gray-800/80 transition"
+                  placeholder={t.enConPass}
+                  required
+                />
+              </div>
+              <button
+                className="bg-gradient-to-r from-pink-400 to-orange-400 text-white font-bold p-3 rounded-lg hover:from-orange-400 hover:to-pink-400 w-full shadow transition duration-300"
+                type="submit"
+              >
+                {t.login}
+              </button>
+            </form>
+            {/* Already have account */}
+            <p className="mt-4 text-center text-gray-700 dark:text-gray-200">
+              {t.haveAccount}{" "}
+              <span
+                className="font-extrabold text-pink-500 cursor-pointer hover:text-orange-400 transition"
+                onClick={() => (window.location.href = "/login")}
+              >
+                {t.register}
+              </span>
+            </p>
+          </div>
         </div>
-
-        {/* แจ้งเตือน Login สำเร็จ */}
+        {/* Success Notification */}
         <AnimatePresence>
           {showSuccess && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 10, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-10 bg-primary border-2 border-dashed border-black text-white bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 font-bold px-6 py-3 rounded-lg shadow-lg text-center"
+              className="absolute top-10 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 border-2 border-dashed border-white text-white font-bold px-8 py-4 rounded-xl shadow-2xl text-center z-50"
             >
-              ✅ ลงทะเบียนสำเร็จ!
+              {t.success}
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}

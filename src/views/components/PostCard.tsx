@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+// import mockPosts from "../../mock/mockPost";
+// import {  useContext } from "react";
+// import { ThemeContext } from "../../themeContext";
 
 // import bg from "./../assets/bg2.jpg"
 
@@ -7,9 +10,10 @@ interface PostCardProps {
   title: string;
   type: string;
   province: string;
-  postId: string; // เพิ่ม ID สำหรับใช้งาน
+  postId: number; // เพิ่ม ID สำหรับใช้งาน
   description?: string; // เพิ่ม description ถ้าต้องการ
 }
+
 
 const PostCard = ({
   Image,
@@ -27,19 +31,18 @@ const PostCard = ({
     });
   };
 
-
   return (
     <div
       onClick={handleCardClick}
-      className="cursor-pointer bg-white rounded shadow p-2 hover:shadow-lg transition"
+      className="cursor-pointer bg-primary dark:bg-secondary rounded shadow p-2 hover:shadow-lg transition duration-500"
     >
       <img
         src={Image}
         alt={title}
-        className="w-full h-40 object-contain rounded"
+        className="w-full h-40 object-contain rounded dark:text-primary transition-transform duration-500 hover:scale-105"
       />
       <h3 className="font-bold mt-2">{title}</h3>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm dark:text-primary text-gray-600">
         {type} - {province}
       </p>
     </div>

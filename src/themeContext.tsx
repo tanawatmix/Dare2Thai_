@@ -1,4 +1,3 @@
-// themeContext.tsx
 import React, { createContext, useState, useEffect } from "react";
 
 interface ThemeContextType {
@@ -12,21 +11,23 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const storedTheme = localStorage.getItem("darkMode");
+    return storedTheme === "true"; // default to false
+  });
 
   useEffect(() => {
-    const saved = localStorage.getItem("darkMode");
-    if (saved) setDarkMode(JSON.parse(saved));
-  }, []);
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (darkMode) root.classList.add("dark");
-    else root.classList.remove("dark");
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("darkMode", darkMode.toString());
   }, [darkMode]);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
@@ -34,4 +35,3 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ThemeContext.Provider>
   );
 };
-export default ThemeProvider;

@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import { ThemeContext } from "../themeContext";
 // import bg from "./assets/bg2.jpg";
 
-
 const images = [
   "https://www.ananda.co.th/blog/thegenc/wp-content/uploads/2024/03/%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%8B%E0%B8%99%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD-2024-05-23T123322.980.png",
   "https://www.scb.co.th/content/media/personal-banking/stories-tips/traveling-thailand/traveling-thailand5.jpg",
@@ -36,47 +35,70 @@ const HomeUI = () => {
         darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
       style={{
-        backgroundImage:{
-        'light-bg': "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
-        'dark-bg': "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
-        }[darkMode ? 'dark-bg' : 'light-bg']
+        backgroundImage: {
+          "light-bg":
+            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
+          "dark-bg":
+            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
+        }[darkMode ? "dark-bg" : "light-bg"],
       }}
     >
       <Navbar />
 
       <div className="relative">
         <div className="flex flex-col items-center justify-center min-h-screen px-4">
-          <p className={`text-6xl font-extrabold transition duration-500  bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent mb-4 text-center mt-40
-            ${darkMode ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent" : "bg-white text-black"}  `}>
+          <p
+            className={`text-6xl font-extrabold transition duration-500  bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent mb-4 text-center mt-40
+            ${
+              darkMode
+                ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent"
+                : "bg-white text-black"
+            }  `}
+          >
             Dare2Thai
           </p>
           <p
             className={`transition duration-500 py-20 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent text-xl text-center font-bold px-20
-            ${darkMode ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent" : "bg-white text-black"}`}
+            ${
+              darkMode
+                ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent"
+                : "bg-white text-black"
+            }`}
           >
             Dare2Thai
             เป็นแพลตฟอร์มที่เชื่อมโยงผู้คนที่รักการท่องเที่ยวและการสำรวจสถานที่ใหม่
-            ๆ ในประเทศไทย
+            ๆ ในประเทศไทย เราเชื่อว่าการเดินทางไม่ใช่แค่การเปลี่ยนสถานที่
+            แต่คือการเปิดมุมมองใหม่ ๆ ให้กับชีวิต
+            ไม่ว่าคุณจะเป็นนักเดินทางสายลุย นักถ่ายภาพธรรมชาติ
+            หรือผู้ที่หลงใหลในวัฒนธรรมท้องถิ่น ที่นี่คือพื้นที่สำหรับคุณ
+            สำรวจเส้นทางลับ หมู่บ้านเล็ก ๆ ที่ยังไม่ถูกรุกล้ำด้วยนักท่องเที่ยว
+            และสัมผัสวิถีชีวิตที่แท้จริงของผู้คน ค้นพบจุดหมายใหม่ ๆ
+            ที่คุณอาจไม่เคยรู้ว่ามีอยู่บนแผนที่ของไทย
             <br />
             <button
-              onClick={() => (window.location.href = "/member")}className={`text-sm font-bold py-4 px-6 rounded transition duration-500 mt-4 shadow-lg
-              ${darkMode ? "bg-gray-900 text-white" : "bg-pink-500 text-white hover:bg-secondary"}`}
+              onClick={() => (window.location.href = "/member")}
+              className={`text-sm font-bold py-4 px-6 rounded transition duration-500 mt-4 shadow-lg hover:scale-150 
+              ${
+                darkMode
+                  ? "bg-gray-900 text-white"
+                  : "bg-pink-500 text-white hover:bg-secondary"
+              }`}
             >
               เริ่มต้นสำรวจ
             </button>
           </p>
 
           {/* วิดีโอ YouTube */}
-          <div className="w-full max-w-xl mx-auto mt-20 aspect-video rounded-2xl overflow-hidden shadow-lg">
+            <div className="w-full max-w-xl mx-auto mt-20 aspect-video rounded-2xl overflow-hidden shadow-lg">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/vCZNHfgpIwk?autoplay=1&mute=1"
+              src="https://www.youtube.com/embed/vCZNHfgpIwk?autoplay=1&"
               title="เที่ยวไทย"
               style={{ border: 0 }}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-          </div>
+            </div>
 
           {/* แกลเลอรี */}
           <div className="w-full mt-14 relative max-w-8xl mx-auto">
@@ -101,7 +123,7 @@ const HomeUI = () => {
                 <div
                   key={index}
                   className={`min-w-[260px] sm:min-w-[300px] h-[180px] rounded-xl shadow-xl overflow-hidden cursor-pointer ${
-                    darkMode ? "bg-gray-800" : "bg-white"
+                    darkMode ? "bg-accent" : "bg-primary"
                   }`}
                   onClick={() => {
                     const container = scrollRef.current;
@@ -126,9 +148,9 @@ const HomeUI = () => {
                   <img
                     src={src}
                     alt={`Image ${index + 1}`}
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-150"
+                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-90"
                   />
-                  <style>Add commentMore actions
+                  <style> 
                     {`
                   .no-scrollbar::-webkit-scrollbar {
                   display: none;
@@ -147,9 +169,33 @@ const HomeUI = () => {
           {/* เนื้อหาสรุปประเทศไทย */}
           <h1
             className={`transition duration-500 py-20 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent text-xl text-center font-bold px-20
-            ${darkMode ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent" : "bg-white text-black"}`}
+            ${
+              darkMode
+                ? "bg-gray-900 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400 bg-clip-text text-transparent"
+                : "bg-white text-black"
+            }`}
           >
-            ประเทศไทยถือเป็นหนึ่งในจุดหมายปลายทางยอดนิยมของนักท่องเที่ยวทั่วโลก...
+            ประเทศไทยถือเป็นหนึ่งในจุดหมายปลายทางยอดนิยมของนักท่องเที่ยวทั่วโลก
+            ด้วยความหลากหลายทางวัฒนธรรม ธรรมชาติที่งดงาม
+            และอาหารที่มีรสชาติอร่อยเลิศ
+            ที่นี่คุณจะได้สัมผัสกับบรรยากาศที่อบอุ่นและเป็นมิตรจากคนไทยที่มีน้ำใจ
+            หากคุณชื่นชอบทะเล ชายหาดที่สวยงามของภูเก็ต กระบี่
+            และเกาะสมุยจะไม่ทำให้คุณผิดหวัง น้ำทะเลใสสีฟ้าคราม ทรายขาวละเอียด
+            เหมาะแก่การพักผ่อนและทำกิจกรรมทางน้ำ สำหรับคนรักธรรมชาติและการผจญภัย
+            เชียงใหม่และเชียงรายในภาคเหนือจะพาคุณไปพบกับขุนเขาสูง ป่าไม้เขียวขจี
+            และวัฒนธรรมชนเผ่าที่น่าสนใจ
+            อย่าพลาดการเยี่ยมชมวัดโบราณและตลาดกลางคืนที่เต็มไปด้วยของฝากพื้นเมือง
+            ในกรุงเทพฯ เมืองหลวงที่เต็มไปด้วยความทันสมัยและวัฒนธรรมดั้งเดิม
+            คุณจะได้ชมวัดพระแก้ว พระบรมมหาราชวัง และตลาดน้ำที่มีสีสัน
+            รวมทั้งสถานที่ช้อปปิ้งและร้านอาหารหลากหลาย นอกจากนี้
+            อย่าลืมลิ้มลองอาหารไทยที่ขึ้นชื่อ เช่น ต้มยำกุ้ง ผัดไทย แกงเขียวหวาน
+            และส้มตำ ที่มีรสชาติจัดจ้านและสมดุลระหว่างเปรี้ยว หวาน เผ็ด และเค็ม
+            ประเทศไทยมีเทศกาลและประเพณีที่น่าสนใจตลอดทั้งปี เช่น สงกรานต์
+            ลอยกระทง และงานวัฒนธรรมท้องถิ่น
+            ที่จะทำให้คุณได้สัมผัสวิถีชีวิตและความเชื่อของคนไทยอย่างแท้จริง
+            ไม่ว่าคุณจะมาเพื่อพักผ่อน ช้อปปิ้ง หรือเรียนรู้วัฒนธรรม
+            ไทยก็มีทุกอย่างให้ครบครัน
+            พร้อมบริการที่อบอุ่นและเป็นกันเองที่คุณจะประทับใจไม่รู้ลืม
           </h1>
         </div>
         <Footer />

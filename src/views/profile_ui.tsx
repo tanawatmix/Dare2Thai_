@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ThemeContext } from "./../themeContext";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop";
 import getCroppedImg from "./utils/cropImage"; // ฟังก์ชันสำหรับครอปภาพ
@@ -18,6 +19,7 @@ const ProfileUI = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [open, setOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { darkMode } = useContext(ThemeContext);
 
   const handleSaveEdit = () => {
     setShowSuccess(true);
@@ -63,20 +65,29 @@ const ProfileUI = () => {
 
   return (
     <div
-      className="relative bg-fixed bg-cover min-h-screen"
+      className="bg-fixed bg-cover min-h-screen"
       style={{
-        backgroundImage: `url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)`,
+        backgroundImage: {
+          "light-bg":
+            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
+          "dark-bg":
+            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
+        }[darkMode ? "dark-bg" : "light-bg"],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <Navbar />
       <div className="flex justify-center pt-20 pb-10">
-        <div className="bg-white text-black font-bold p-8 rounded-md shadow-md w-full max-w-2xl">
-          <h2 className="text-xl font-semibold mb-2">Personal Information</h2>
+        <div className="bg-primary dark:bg-secondary text-secondary dark:text-primary font-bold p-8 rounded-md shadow-md w-full max-w-2xl">
+          <h2 className="text-xl font-semibold mb-2 underline text-center">
+            Your Personal Information
+          </h2>
 
-          <div className="flex items-center gap-6 mb-6">
+          <div className="flex items-center justify-center mt-4 mb-4 ">
             <img
               src={avatar}
-              className="w-24 h-24 rounded-md object-cover"
+              className="w-40 h-40 rounded-full border border-secondary dark:border-primary object-cover"
               alt="Avatar"
             />
             <div>
@@ -87,13 +98,15 @@ const ProfileUI = () => {
                 className="hidden"
                 onChange={handleImageSelect}
               />
-              <label
-                htmlFor="avatar-upload"
-                className="bg-white text-black px-4 py-2 rounded cursor-pointer hover:bg-secondary hover:text-white transition border border-gray-400"
-              >
-                Change avatar
-              </label>
             </div>
+          </div>
+          <div className="flex justify-center">
+            <label
+              htmlFor="avatar-upload"
+              className="bg-white text-black px-1 py-2 rounded cursor-pointer hover:bg-secondary hover:text-white transition border border-secondary"
+            >
+              Change avatar
+            </label>
           </div>
 
           <div className="mb-4">
@@ -159,7 +172,7 @@ const ProfileUI = () => {
 
       {/* Modal for cropping image */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="absolute top-1/2 left-1/2 w-[90vw] max-w-[500px] bg-white p-4 rounded shadow transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute top-1/2 left-1/2 w-[90vw] max-w-[500px] bg-white dark:bg-secondary p-4 rounded shadow transform -translate-x-1/2 -translate-y-1/2">
           <div className="relative w-full h-60 bg-gray-200">
             {imageSrc && (
               <Cropper

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import bg from "./assets/bg2.jpg";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "./../themeContext";
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -9,6 +9,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [lang, setLang] = useState<"th" | "en">("th");
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   const translations = {
     th: {
@@ -40,14 +41,11 @@ const Login: React.FC = () => {
 
   const handleLogin = () => {
     if (!email || !password) {
-      alert(t.fillAll);
-      return;
-    }else {
       setShowError(true);
       setShowSuccess(false);
-      setTimeout(() => setShowError(false), 3000);
+      setTimeout(() => setShowError(false), 2500);
+      return;
     }
-
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem(
       "user",
@@ -64,92 +62,133 @@ const Login: React.FC = () => {
     setTimeout(() => {
       setShowSuccess(false);
       navigate("/home");
-    }, 1000);
-
-
-
+    }, 1200);
   };
 
   return (
     <div
-      className="bg-fixed bg-cover min-h-screen"
-      style={{ backgroundImage: `url(${bg})` }}
+      className={`relative min-h-screen flex items-center justify-center transition duration-500 ${
+        darkMode ? "bg-gray-950 text-white" : "bg-gradient-to-br from-blue-100 via-white to-pink-100 text-black"
+      }`}
+      style={{
+        backgroundImage: {
+          "light-bg":
+            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
+          "dark-bg":
+            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
+        }[darkMode ? "dark-bg" : "light-bg"],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="relative min-h-screen flex items-center justify-center px-4">
-        <div className="border-2 bg-white border-dashed border-blue-400 rounded-lg shadow-lg p-10 max-w-md w-full relative">
-          {/* ปุ่มเปลี่ยนภาษา */}
-          <div className="absolute top-2 right-4 border-2 border-secondary rounded hover:bg-secondary hover:text-white ">
+      <div className="relative min-h-screen flex items-center justify-center px-4 w-full">
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4, type: "spring" }}
+          className="bg-primary dark:bg-secondary border-2 border-blue-400 dark:border-pink-400 shadow-2xl rounded-3xl p-10 max-w-md w-full relative backdrop-blur-lg"
+        >
+          {/* Language & Theme Switcher */}
+          <div className="absolute top-4 right-4 flex flex-col items-end gap-2 z-10">
             <button
-              className="text-sm text-blue-600 hover:bg-secondary hover:text-white py-1 px-5"
+              className="text-xs font-semibold py-1 px-4 rounded-full border border-blue-400 dark:border-pink-400 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-pink-400 hover:bg-blue-100 dark:hover:bg-pink-900 transition"
               onClick={() => setLang(lang === "th" ? "en" : "th")}
+              aria-label="Switch language"
             >
               {lang === "th" ? "EN" : "ไทย"}
             </button>
+            <button
+              onClick={toggleDarkMode}
+              className="flex items-center gap-2 text-xs font-semibold py-1 px-4 rounded-full border border-blue-400 dark:border-pink-400 bg-white/80 dark:bg-gray-800/80 text-blue-600 dark:text-pink-400 hover:bg-blue-100 dark:hover:bg-pink-900 transition"
+            >
+              {darkMode ? (
+                <>
+                  <span>Light</span>
+                  <span role="img" aria-label="Light mode">☀️</span>
+                </>
+              ) : (
+                <>
+                  <span>Dark</span>
+                  <span role="img" aria-label="Dark mode">🌙</span>
+                </>
+              )}
+            </button>
           </div>
 
-          {/* ปุ่มกลับหน้าแรก */}
+          {/* Back to Home Button */}
           <button
-            className="bg-primary border border-blue-400 text-black px-4 py-2 rounded hover:bg-secondary hover:text-white mb-4 transition"
+            className="absolute left-4 top-4 bg-gradient-to-r from-blue-400 to-pink-400 text-white px-4 py-2 rounded-full shadow hover:scale-105 transition font-semibold"
             onClick={() => navigate("/")}
           >
             {t.home}
           </button>
 
-          <h3 className="text-2xl font-extrabold text-pink-500 ml-2 mb-6 text-center">
+          <h3 className="text-3xl font-extrabold dark:text-pink-400 text-blue-500 mb-8 text-center drop-shadow">
             {t.title}
           </h3>
 
-          <div>
-            <label htmlFor="email" className="block mb-2">
-              {t.email}
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-3 border border-gray-300 rounded mb-4"
-              placeholder={t.email}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <label htmlFor="password" className="block mb-2">
-              {t.password}
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-3 border border-gray-300 rounded mb-6"
-              placeholder={t.password}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <button
-            className="bg-primary text-black font-bold p-3 border border-blue-400 rounded hover:bg-secondary hover:text-white w-full transition"
-            onClick={handleLogin}
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleLogin();
+            }}
           >
-            {t.login}
-          </button>
+            <div className="mb-6">
+              <label htmlFor="email" className="block mb-2 font-semibold">
+                {t.email}
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full p-3 border-2 border-blue-200 dark:border-pink-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-pink-400 transition bg-white/80 dark:bg-gray-800/80"
+                placeholder={t.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
+              />
 
-          <p className="mt-4">
+              <label htmlFor="password" className="block mt-4 mb-2 font-semibold">
+                {t.password}
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full p-3 border-2 border-blue-200 dark:border-pink-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-pink-400 transition bg-white/80 dark:bg-gray-800/80"
+                placeholder={t.password}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-r from-blue-400 to-pink-400 text-white font-bold p-3 rounded-lg w-full shadow hover:from-pink-400 hover:to-blue-400 transition"
+              type="submit"
+            >
+              {t.login}
+            </motion.button>
+          </form>
+
+          <p className="mt-6 text-center">
             {t.noAccount}
             <span
-              className="font-extrabold text-pink-500 cursor-pointer hover:text-secondary transition ml-1"
+              className="font-extrabold dark:text-pink-400 text-blue-500 cursor-pointer hover:text-pink-500 dark:hover:text-blue-400 transition ml-1"
               onClick={() => navigate("/register")}
             >
               {t.register}
             </span>
           </p>
-        </div>
+        </motion.div>
 
+        {/* Success & Error Messages */}
         <AnimatePresence>
           {showSuccess && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-10 bg-primary border-2 border-dashed border-black text-white bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 font-bold px-6 py-3 rounded-lg shadow-lg text-center"
+              exit={{ opacity: 0, y: -30 }}
+              className="fixed top-8 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 text-white font-bold px-8 py-4 rounded-xl shadow-lg text-center z-50"
             >
               {t.success}
               <motion.div
@@ -164,10 +203,10 @@ const Login: React.FC = () => {
         <AnimatePresence>
           {showError && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-10 bg-red-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg text-center"
+              exit={{ opacity: 0, y: -30 }}
+              className="fixed top-8 left-1/2 -translate-x-1/2 bg-red-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg text-center z-50"
             >
               {t.fillAll}
             </motion.div>
