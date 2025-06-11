@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="border-b bg-primary dark:bg-secondary py-4 px-6 fixed w-full z-50 shadow transition duration-500">
+    <nav className="border-b border-blue-400 dark:border-pink-400 bg-primary dark:bg-secondary py-4 px-6 fixed w-full z-50 shadow transition duration-500">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div
@@ -103,15 +103,15 @@ const Navbar: React.FC = () => {
           )}
 
           {/* Language Switch */}
-            <select
+          <select
             onChange={(e) => changeLanguage(e.target.value as "en" | "th")}
             value={i18n.language}
             className="border rounded px-2 py-1 text-black border-secondary dark:text-white dark:border-white dark:bg-secondary hover:text-secondary transition duration-300"
-            >
+          >
             <option value="th">ภาษาไทย</option>
             <option value="en">ENGLISH</option>
-            </select>
-            
+          </select>
+
           {/* Dark Mode Toggle */}
           <label className="flex items-center cursor-pointer ml-2">
             <div className="relative">
@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden text-secondary dark:text-white">
+        <div className="md:hidden text-secondary dark:text-white transition duration-500">
           <button onClick={toggleMenu} aria-label="Toggle menu">
             {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden mt-4 flex flex-col space-y-2 bg-primary dark:bg-secondary rounded shadow p-4">
+        <div className="md:hidden mt-4 flex flex-col space-y-2 bg-primary dark:bg-secondary rounded p-4 transition duration-500">
           <NavButton to="/Posts">{t("place")}</NavButton>
           <NavButton to="/home">{t("home")}</NavButton>
           {!isLoggedIn ? (
@@ -178,12 +178,25 @@ const Navbar: React.FC = () => {
             <option value="th">ภาษาไทย</option>
             <option value="en">ENGLISH</option>
           </select>
-          <button
-            onClick={toggleDarkMode}
-            className="border border-secondary text-black dark:text-white dark:border-white dark:bg-secondary py-1 px-2 rounded transition duration-300 hover:bg-secondary hover:text-white dark:hover:bg-primary dark:hover:text-black"
-          >
-            {darkMode ? "LightMode☀️" : "DarkMode🌙"}
-          </button>
+          <label className="flex items-center cursor-pointer ml-2">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={darkMode}
+                onChange={toggleDarkMode}
+                className="sr-only"
+              />
+              <div className="block bg-accent dark:bg-accent w-12 h-6 rounded-full"></div>
+              <div
+                className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition duration-500 ${
+                  darkMode ? "translate-x-6" : ""
+                }`}
+              ></div>
+            </div>
+            <span className="ml-2 text-secondary dark:text-white text-sm">
+              {darkMode ? "LightMode☀️" : "DarkMode🌙"}
+            </span>
+          </label>
         </div>
       )}
     </nav>

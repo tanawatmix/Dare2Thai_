@@ -87,7 +87,7 @@ const ProfileUI = () => {
           <div className="flex items-center justify-center mt-4 mb-4 ">
             <img
               src={avatar}
-              className="w-40 h-40 rounded-full border border-secondary dark:border-primary object-cover"
+              className="w-40 h-40 rounded-full border border-blue-400 text-secondary dark:border-pink-400 object-cover"
               alt="Avatar"
             />
             <div>
@@ -103,7 +103,7 @@ const ProfileUI = () => {
           <div className="flex justify-center">
             <label
               htmlFor="avatar-upload"
-              className="bg-white text-black px-1 py-2 rounded cursor-pointer hover:bg-secondary hover:text-white transition border border-secondary"
+              className="bg-primary dark:bg-secondary dark:hover:bg-primary dark:hover:text-secondary text-secondary dark:text-primary px-1 py-2 rounded cursor-pointer hover:bg-secondary hover:text-white transition border border-blue-400 text-secondary dark:border-pink-400"
             >
               Change avatar
             </label>
@@ -117,7 +117,7 @@ const ProfileUI = () => {
               name="username"
               value={form.username}
               onChange={handleChange}
-              className="w-full p-2 rounded border border-gray-400 "
+              className="w-full p-2 rounded border border-blue-400 text-secondary dark:border-pink-400"
             />
           </div>
 
@@ -128,7 +128,7 @@ const ProfileUI = () => {
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full p-2 rounded   border border-gray-400"
+              className="w-full p-2 rounded border border-blue-400 text-secondary dark:border-pink-400"
             />
           </div>
 
@@ -139,7 +139,7 @@ const ProfileUI = () => {
               name="password"
               value={form.password}
               onChange={handleChange}
-              className="w-full p-2 rounded  border border-gray-400"
+              className="w-full p-2 rounded border border-blue-400 text-secondary dark:border-pink-400"
             />
           </div>
 
@@ -150,18 +150,18 @@ const ProfileUI = () => {
               name="confirmPassword"
               value={form.confirmPassword}
               onChange={handleChange}
-              className="w-full p-2 rounded border border-gray-400"
+              className="w-full p-2 rounded border border-blue-400 text-secondary dark:border-pink-400"
             />
           </div>
 
           <button
-            className="bg-white hover:bg-secondary hover:text-white text-black font-bold px-6 py-2 rounded transition border border-gray-400 "
+            className="bg-primary dark:bg-secondary border-blue-400 dark:border-pink-400 text-secondary dark:text-primary hover:text-primary hover:bg-secondary dark:hover:text-secondary dark:hover:bg-primary font-bold px-6 py-2 ml-2 rounded transition border"
             onClick={handleSaveEdit}
           >
             Save
           </button>
           <button
-            className="bg-white hover:bg-secondary hover:text-white text-black font-bold px-6 py-2 ml-2 rounded transition border border-gray-400 "
+            className="bg-primary dark:bg-secondary border-blue-400 text-secondary dark:border-pink-400 dark:text-primary hover:text-primary hover:bg-secondary dark:hover:text-secondary dark:hover:bg-primary font-bold px-6 py-2 ml-2 rounded transition border"
             onClick={() => (window.location.href = "/home")}
           >
             back

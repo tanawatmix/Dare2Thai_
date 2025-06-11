@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeContext } from "./../themeContext";
 import { FaGoogle, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import bp from "./assets/bp.jpg"; // Background image
+import wp from "./assets/wp.jpg"; // Background image
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -67,12 +69,7 @@ const Login: React.FC = () => {
     <div
       className="bg-fixed bg-cover min-h-screen"
       style={{
-        backgroundImage: {
-          "light-bg":
-            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
-          "dark-bg":
-            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
-        }[darkMode ? "dark-bg" : "light-bg"],
+        backgroundImage: `url(${darkMode ? bp : wp}`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

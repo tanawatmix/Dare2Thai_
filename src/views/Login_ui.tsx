@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "./../themeContext";
+import bp from "./assets/bp.jpg"; // Background image
+import wp from "./assets/wp.jpg"; // Background image
 
 const Login: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -10,6 +12,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [lang, setLang] = useState<"th" | "en">("th");
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  
 
   const translations = {
     th: {
@@ -71,12 +74,7 @@ const Login: React.FC = () => {
         darkMode ? "bg-gray-950 text-white" : "bg-gradient-to-br from-blue-100 via-white to-pink-100 text-black"
       }`}
       style={{
-        backgroundImage: {
-          "light-bg":
-            "url(https://img.freepik.com/free-photo/empty-room-background-with-white-walls_23-2151020041.jpg?semt=ais_hybrid&w=740)",
-          "dark-bg":
-            "url('https://img.freepik.com/free-photo/3d-rendering-abstract-black-white-waves_23-2150853543.jpg?semt=ais_hybrid&w=740')",
-        }[darkMode ? "dark-bg" : "light-bg"],
+        backgroundImage: `url(${darkMode ? bp : wp})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

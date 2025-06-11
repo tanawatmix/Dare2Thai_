@@ -8,6 +8,7 @@ import PostUI from "./views/Post_Pages";
 import PostDetailsUI from "./../src/views/PostDetails_ui";
 import ChatUI from "./../src/views/Chat_ui";
 import ProfileUI from "./../src/views/profile_ui";
+import CreatePostUI from "./views/CreatePost_ui";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path="/post/:postId" element={<PostDetailsUI />} />
           <Route path="/chat/:postId" element={<ChatUI />} />
           <Route path="/profile" element={<ProfileUI />} />
+          <Route path="/create-post" element={<CreatePostUI />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
