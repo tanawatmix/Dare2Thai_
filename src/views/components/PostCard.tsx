@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // import bg from "./../assets/bg2.jpg"
 
 interface PostCardProps {
-  Image: string;
+  images: string[];
   title: string;
   type: string;
   province: string;
@@ -16,7 +16,7 @@ interface PostCardProps {
 
 
 const PostCard = ({
-  Image,
+  images,
   title,
   type,
   province,
@@ -27,9 +27,11 @@ const PostCard = ({
 
   const handleCardClick = () => {
     navigate(`/post/${postId}`, {
-      state: { title, Image, type, province, description },
+      state: { title, images, type, province, description },
     });
   };
+  const coverImage =
+    images && images.length > 0 ? images[0] : "URL/to/your/default/image.png";
 
   return (
     <div
@@ -37,7 +39,7 @@ const PostCard = ({
       className="cursor-pointer bg-primary dark:bg-secondary rounded shadow p-2 hover:shadow-lg transition duration-500"
     >
       <img
-        src={Image}
+        src={coverImage}
         alt={title}
         className="w-full h-40 object-contain rounded dark:text-primary transition-transform duration-500 hover:scale-105"
       />

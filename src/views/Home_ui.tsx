@@ -50,7 +50,7 @@ const HomeUI = () => {
       }`}
       style={{
         backgroundImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, ${
-          darkMode ? "rgba(166, 255, 137, 0.19)" : "rgba(243, 255, 111, 0.19)"
+          darkMode ? "rgba(184, 70, 255, 0.5)" : "rgba(255, 144, 153, 0.5)"
         }, transparent 80%), url(${darkMode ? bp : wp})`,
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
@@ -61,7 +61,7 @@ const HomeUI = () => {
 
       <div className="relative">
         <div className="flex flex-col items-center justify-center min-h-screen px-4">
-          {/* Title */}
+          {/* Title */} 
           <h1
             className={`text-6xl font-extrabold mb-4 text-center mt-40 drop-shadow-lg transition duration-500 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent ${
               darkMode
@@ -74,7 +74,7 @@ const HomeUI = () => {
 
           {/* Description */}
           <div
-            className={`max-w-3xl rounded-xl shadow-xl bg-white/70 dark:bg-gray-900/70 p-8 mt-4 mb-8 transition duration-500`}
+            className={`max-w-3xl backdrop-blur-sm rounded-xl shadow-xl bg-white/70 dark:bg-gray-900/70 p-8 mt-4 mb-8 transition duration-500`}
           >
             <p className="text-xl font-bold text-center mb-4">
               Dare2Thai
@@ -135,7 +135,7 @@ const HomeUI = () => {
 
             <div
               ref={scrollRef}
-              className="flex gap-6 px-12 overflow-x-scroll scroll-smooth no-scrollbar py-4"
+              className="flex gap-6 px-12 backdrop-blur-sm overflow-x-scroll scroll-smooth no-scrollbar py-4"
             >
               {images.map((src, index) => (
                 <div
@@ -179,7 +179,7 @@ const HomeUI = () => {
 
           {/* Thailand Summary */}
           <div
-            className={`max-w-4xl rounded-xl shadow-xl bg-white/70 dark:bg-gray-900/70 p-8 mt-16 mb-20 transition duration-500`}
+            className={`max-w-4xl backdrop-blur-sm rounded-xl shadow-xl bg-white/70 dark:bg-gray-900/70 p-8 mt-16 mb-20 transition duration-500`}
           >
             <h2
               className={`text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent ${

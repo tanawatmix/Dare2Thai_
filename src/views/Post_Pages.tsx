@@ -154,7 +154,7 @@ const PostPage = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
             <button
               onClick={() => window.location.href = "/create-post"}
-              className="flex items-center gap-2 border-2 border-pink-400 dark:border-blue-500 rounded-lg bg-primary text-black dark:bg-secondary dark:text-primary px-6 py-2 font-semibold shadow hover:bg-secondary hover:text-white dark:hover:bg-primary dark:hover:text-secondary transition-all duration-300"
+              className="flex items-center gap-2 border-2 border-blue-400 dark:border-pink-500 rounded-lg bg-primary text-black dark:bg-secondary dark:text-primary px-6 py-2 font-semibold shadow hover:bg-secondary hover:text-white dark:hover:bg-primary dark:hover:text-secondary transition-all duration-300"
             >
               <FaPlus />
               โพสต์
@@ -232,20 +232,20 @@ const PostPage = () => {
           </Drawer>
 
           {/* Posts */}
-          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {currentPosts.length === 0 ? (
               <div className="col-span-full text-center text-gray-500 text-xl">
                 ไม่พบโพสต์ที่ตรงกับตัวกรอง
               </div>
             ) : (
-              currentPosts.map((post: (typeof mockPosts)[number]) => (
+              currentPosts.map((post: (typeof mockPosts)[number], idx) => (
                 <PostCard
-                  key={post.postId}
-                  Image={post.image}
+                  key={idx}
+                  images={post.images} // ส่ง array ของรูปภาพ
                   title={post.title}
                   type={post.type}
                   province={post.province}
-                  postId={post.postId}
+                  postId={idx} // ส่ง index เป็น id
                   description={post.description}
                 />
               ))

@@ -32,7 +32,7 @@ const PostDetailsUI = () => {
     );
   }
 
-  const { title, Image, type, province, description } = state;
+  const { title, images, type, province, description } = state;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -43,12 +43,24 @@ const PostDetailsUI = () => {
           backgroundImage: `url(${darkMode ? bp : wp})`,
         }}
       >
-        <div className="max-w-2xl mx-auto bg-primary dark:bg-secondary border border-blue-400 dark:border-pink-400 p-8 rounded-2xl  mt-5">
+        <div className="max-w-2xl mx-auto bg-primary-opacity-50 dark:bg-secondary dark:bg-opacity-50 border border-blue-400 dark:border-pink-400 p-10 rounded-3xl mt-20 mb-8 shadow-xl backdrop-blur-lg">
+          {/* รูปภาพทั้งหมด */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+            {images.map((image: string, index: number) => (
+              <div
+          key={index}
+          className="aspect-square flex items-center justify-center bg-primary dark:bg-secondary rounded-xl overflow-hidden border border-blue-300 dark:border-pink-300 shadow-md hover:scale-105 transition-transform"
+              >
           <img
-            src={Image}
-            alt={title}
-            className="w-full h-72 object-contain rounded-xl shadow mb-6 border border-blue-400 dark:border-pink-400"
+            src={image}
+            alt={`${title} - รูปที่ ${index + 1}`}
+            className="object-contain w-full h-full"
+            loading="lazy"
           />
+              </div>
+            ))}
+          </div>
+
           <h2 className="text-3xl font-extrabold mb-2 text-gray-900 dark:text-white">{title}</h2>
           <div className="flex items-center gap-3 mb-4">
             <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium dark:bg-blue-900 dark:text-blue-200">
