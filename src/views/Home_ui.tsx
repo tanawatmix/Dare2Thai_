@@ -1,10 +1,12 @@
-import { useRef, useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { motion, useMotionValue } from "framer-motion";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import { ThemeContext } from "../themeContext";
+
+import D2T2 from "./assets/D2T2.png"; // Logo image
 import bp from "./assets/bp.jpg"; // Background image
 import wp from "./assets/wp.jpg"; // Background image
-
 
 const images = [
   "https://www.ananda.co.th/blog/thegenc/wp-content/uploads/2024/03/%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%8B%E0%B8%99%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD-2024-05-23T123322.980.png",
@@ -20,16 +22,24 @@ const images = [
 
 const HomeUI = () => {
   const { darkMode } = useContext(ThemeContext);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // Carousel state and animation setup
+  const [imgIndex, setImgIndex] = useState(0);
+  const dragX = useMotionValue(0);
+  const SPRING_OPTIONS = {
+    type: "spring",
+    stiffness: 300,
+    damping: 30,
+  };
 
-  const scroll = (direction: "left" | "right") => {
-    const { current } = scrollRef;
-    if (current) {
-      const scrollAmount = direction === "left" ? -320 : 320;
-      current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  const onDragEnd = (info: any) => {
+    if (info.offset.x < -100 && imgIndex < images.length - 1) {
+      setImgIndex((prev) => prev + 1);
+    } else if (info.offset.x > 100 && imgIndex > 0) {
+      setImgIndex((prev) => prev - 1);
     }
   };
+
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
@@ -42,6 +52,14 @@ const HomeUI = () => {
     };
   }, []);
 
+  // Allow setImgIndex to accept both updater and direct value
+  const setImgIndexSafe = (value: number | ((prev: number) => number)) => {
+    if (typeof value === "function") {
+      setImgIndex(value as (prev: number) => number);
+    } else {
+      setImgIndex(value);
+    }
+  };
 
   return (
     <div
@@ -49,7 +67,9 @@ const HomeUI = () => {
         darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
       style={{
-        backgroundImage: `radial-gradient(circle 300px at ${mousePosition.x}px ${mousePosition.y}px, ${
+        backgroundImage: `radial-gradient(circle 300px at ${
+          mousePosition.x
+        }px ${mousePosition.y}px, ${
           darkMode ? "rgba(184, 70, 255, 0.5)" : "rgba(255, 144, 153, 0.5)"
         }, transparent 80%), url(${darkMode ? bp : wp})`,
         backgroundSize: "cover",
@@ -61,9 +81,11 @@ const HomeUI = () => {
 
       <div className="relative">
         <div className="flex flex-col items-center justify-center min-h-screen px-4">
-          {/* Title */} 
+          {/* Title */}
+         
+          <img src={D2T2} alt="D2T" className="w-32 h-32 mt-32 " />
           <h1
-            className={`text-6xl font-extrabold mb-4 text-center mt-40 drop-shadow-lg transition duration-500 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent ${
+            className={`text-6xl font-extrabold mb-4 text-center drop-shadow-lg transition duration-500 bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-anim ${
               darkMode
                 ? "from-blue-500 via-purple-300 to-pink-400"
                 : "from-pink-500 via-pink-400 to-orange-300"
@@ -90,91 +112,94 @@ const HomeUI = () => {
               และสัมผัสวิถีชีวิตที่แท้จริงของผู้คน ค้นพบจุดหมายใหม่ ๆ
               ที่คุณอาจไม่เคยรู้ว่ามีอยู่บนแผนที่ของไทย
             </p>
-            <div className="flex justify-center">
+            <div className="mx-auto h-20 w-full max-w-72 flex items-center justify-center">
               <button
-                onClick={() => (window.location.href = "/Posts")}
-                className={`text-sm font-bold py-3 px-8 rounded-full transition duration-300 mt-2 shadow-lg hover:scale-110 hover:shadow-xl ${
-                  darkMode
-                    ? "bg-blue-600 text-white hover:bg-purple-700"
-                    : "bg-pink-500 text-white hover:bg-orange-400"
-                }`}
+              className="group flex h-12 w-56 items-center justify-center gap-3 border-2 border-pink-500 dark:border-blue-400 bg-gradient-to-r from-pink-100 via-orange-100 to-white dark:from-blue-900 dark:via-purple-900 dark:to-gray-900 px-8 text-lg font-semibold rounded-full shadow-md hover:scale-105 transition-transform duration-200"
+              style={{ transform: "translateX(0px) translateY(0px)" }}
               >
+              <span className="relative overflow-hidden">
+                <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
                 เริ่มต้นสำรวจ
+                </span>
+                <span className="absolute left-0 top-0 block translate-y-full transition-transform duration-300 text-10 group-hover:translate-y-0">
+                ไปกันเลย~~
+                </span>
+              </span>
+              <svg
+                className="w-5 h-5 ml-2 text-pink-500 dark:text-blue-400 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 20 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7l7 7-7 7" />
+              </svg>
               </button>
             </div>
           </div>
 
-          {/* YouTube Video */}
-          <div className="w-full max-w-2xl mx-auto mt-10 aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white/60 dark:border-gray-800/60">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/vCZNHfgpIwk?autoplay=1&"
-              title="เที่ยวไทย"
-              style={{ border: 0 }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-
-          {/* Gallery */}
-          <div className="w-full mt-16 relative max-w-7xl mx-auto">
+          {/* Carousel Controls */}
+          <div className="relative w-full max-w-3xl flex items-center justify-center mt-8 mb-4">
             <button
               className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/70 dark:bg-gray-800/70 hover:bg-white/90 dark:hover:bg-gray-700/90 text-black dark:text-white rounded-full p-3 shadow-lg transition"
-              onClick={() => scroll("left")}
+              onClick={() =>
+                setImgIndexSafe((prev: number) =>
+                  prev === 0 ? images.length - 1 : prev - 1
+                )
+              }
               aria-label="Scroll left"
             >
               ❮
             </button>
+            <div className="overflow-hidden  rounded-xl w-full">
+              <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                style={{ x: dragX }}
+                animate={{ x: -imgIndex * 100 + "%" }}
+                transition={SPRING_OPTIONS}
+                onDragEnd={onDragEnd}
+                className="flex  "
+              >
+                {images.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`carousel-img-${idx}`}
+                    className="object-cover object-center mx-auto w-full h-80 flex-shrink-0"
+                    style={{ minWidth: "100%" }}
+                  />
+                ))}
+              </motion.div>
+            </div>
+
             <button
               className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/70 dark:bg-gray-800/70 hover:bg-white/90 dark:hover:bg-gray-700/90 text-black dark:text-white rounded-full p-3 shadow-lg transition"
-              onClick={() => scroll("right")}
+              onClick={() =>
+                setImgIndexSafe((prev: number) =>
+                  prev === images.length - 1 ? 0 : prev + 1
+                )
+              }
               aria-label="Scroll right"
             >
               ❯
             </button>
-
-            <div
-              ref={scrollRef}
-              className="flex gap-6 px-12 backdrop-blur-sm overflow-x-scroll scroll-smooth no-scrollbar py-4"
-            >
-              {images.map((src, index) => (
-                <div
-                  key={index}
-                  className={`min-w-[260px] sm:min-w-[320px] h-[200px] rounded-2xl shadow-2xl overflow-hidden cursor-pointer border-4 border-primary dark:border-accent bg-primary dark:bg-accent transition-transform hover:scale-105`}
-                  onClick={() => {
-                    const container = scrollRef.current;
-                    const item = container?.children[index] as
-                      | HTMLElement
-                      | undefined;
-                    if (container && item) {
-                      const containerRect = container.getBoundingClientRect();
-                      const itemRect = item.getBoundingClientRect();
-                      const scrollLeft =
-                        item.offsetLeft -
-                        container.offsetLeft -
-                        containerRect.width / 2 +
-                        itemRect.width / 2;
-                      container.scrollTo({
-                        left: scrollLeft,
-                        behavior: "smooth",
-                      });
-                    }
-                  }}
-                >
-                  <img
-                    src={src}
-                    alt={`Image ${index + 1}`}
-                    className="object-cover w-full h-full rounded-xl transition-transform duration-500 hover:scale-95"
-                  />
-                </div>
-              ))}
-            </div>
-            <style>
-              {`
-                .no-scrollbar::-webkit-scrollbar { display: none; }
-                .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-              `}
-            </style>
+          </div>
+          {/* Carousel Dots */}
+          <div className="mt-4 flex justify-center gap-2">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setImgIndexSafe(idx)}
+                className={`h-3 w-3 rounded-full transition-colors ${
+                  idx === imgIndex
+                    ? darkMode
+                      ? "bg-white"
+                      : "bg-gray-800"
+                    : "bg-gray-400"
+                }`}
+              />
+            ))}
           </div>
 
           {/* Thailand Summary */}

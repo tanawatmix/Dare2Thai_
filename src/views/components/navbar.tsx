@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FiMenu, FiX, FiUser } from "react-icons/fi";
-import logo from "./../assets/thai.png";
+import React, { useState, useEffect, useContext, type Dispatch, type SetStateAction } from "react";
+import { FiMenu, FiX, FiUser, FiMoon, FiSun } from "react-icons/fi";
+import logo from "./../assets/D2T2.png";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../../themeContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { changeLanguage } from "i18next";
 
 const Navbar: React.FC = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -24,19 +26,10 @@ const Navbar: React.FC = () => {
     }
   }, []);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const TOGGLE_CLASSES =
+    "text-sm font-medium flex items-center gap-2 px-3 md:pl-3 md:pr-3.5 py-3 md:py-1.5 transition-colors relative z-10";
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    setUser(null);
-    window.location.href = "/home";
-  };
-
-  const changeLanguage = (lng: "en" | "th") => {
-    i18n.changeLanguage(lng);
-  };
+  type ToggleOptionsType = "light" | "dark";
 
   // Helper for nav buttons
   const NavButton = ({
@@ -58,6 +51,20 @@ const Navbar: React.FC = () => {
     </button>
   );
 
+  const [selected, setSelected] = useState<ToggleOptionsType>("light");
+const handleLogout = () => {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("user");
+  setIsLoggedIn(false);
+  setUser(null);
+  window.location.href = "/home"; // หรือ redirect ไปหน้าที่ต้องการ
+};
+
+ function toggleMenu() {
+  setIsOpen((prev) => !prev);
+}
+
+
   return (
     <nav className="border-b border-blue-400 dark:border-pink-400 bg-primary dark:bg-secondary py-4 px-6 fixed w-full z-50 shadow transition duration-500">
       <div className="flex items-center justify-between">
@@ -68,7 +75,7 @@ const Navbar: React.FC = () => {
         >
           <img src={logo} alt="logo" className="h-10 w-20 object-contain" />
           <span
-            className={`ml-2 text-xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none ${
+            className={`ml-2 text-xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none bg-[length:200%_auto] animate-gradient-anim  ${
               darkMode
                 ? "bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400"
                 : ""
@@ -79,7 +86,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-4 ">
           <NavButton to="/Posts">{t("place")}</NavButton>
           <NavButton to="/home">{t("home")}</NavButton>
           {isLoggedIn ? (
@@ -90,8 +97,11 @@ const Navbar: React.FC = () => {
               >
                 {t("logout")}
               </button>
-              <NavButton to="/profile" className="flex items-center">
-                <FiUser className="mr-1 text-xl text-secondary dark:text-white dark:text-primary" />
+              <NavButton
+                to="/profile"
+                className="flex items-center bg-[length:200%_auto] animate-gradient-anim "
+              >
+                <FiUser className="mr-1 text-xl text-secondary dark:text-white dark:text-primary " />
                 {t("hello_user", { name: user?.username })}
               </NavButton>
             </>
@@ -113,25 +123,43 @@ const Navbar: React.FC = () => {
           </select>
 
           {/* Dark Mode Toggle */}
-          <label className="flex items-center cursor-pointer ml-2">
-            <div className="relative">
-              <input
-                type="checkbox"
-                checked={darkMode}
-                onChange={toggleDarkMode}
-                className="sr-only"
+          <div className="relative flex w-fit items-center rounded-full">
+            <button
+              className={`${TOGGLE_CLASSES} ${
+                selected === "light" ? "text-white" : "text-slate-300"
+              }`}
+              onClick={() => {
+                setSelected("light");
+                if (darkMode) toggleDarkMode();
+              }}
+            >
+              <FiMoon className="relative z-10 text-lg md:text-sm" />
+              <span className="relative z-10">Light</span>
+            </button>
+            <button
+              className={`${TOGGLE_CLASSES} ${
+                selected === "dark" ? "text-white" : "text-slate-800"
+              }`}
+              onClick={() => {
+                setSelected("dark");
+                if (!darkMode) toggleDarkMode();
+              }}
+            >
+              <FiSun className="relative z-10 text-lg md:text-sm" />
+              <span className="relative z-10">Dark</span>
+            </button>
+            <div
+              className={`absolute inset-0 z-0 flex ${
+                selected === "dark" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <motion.span
+                layout
+                transition={{ type: "spring", damping: 15, stiffness: 250 }}
+                className="h-full w-1/2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600"
               />
-              <div className="block bg-accent dark:bg-accent w-12 h-6 rounded-full"></div>
-              <div
-                className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition ${
-                  darkMode ? "translate-x-6" : ""
-                }`}
-              ></div>
             </div>
-            <span className="ml-2 text-secondary dark:text-white text-sm">
-              {darkMode ? "LightMode☀️" : "DarkMode🌙"}
-            </span>
-          </label>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -143,6 +171,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
+      <AnimatePresence>
       {isOpen && (
         <div className="md:hidden mt-4 flex flex-col space-y-2 bg-primary dark:bg-secondary rounded p-4 transition duration-500">
           <NavButton to="/Posts">{t("place")}</NavButton>
@@ -178,29 +207,49 @@ const Navbar: React.FC = () => {
             <option value="th">ภาษาไทย</option>
             <option value="en">ENGLISH</option>
           </select>
-          <label className="flex items-center cursor-pointer ml-2">
-            <div className="relative">
-              <input
-                type="checkbox"
-                checked={darkMode}
-                onChange={toggleDarkMode}
-                className="sr-only"
+           <div className="relative flex w-fit items-center rounded-full">
+            <button
+              className={`${TOGGLE_CLASSES} ${
+                selected === "light" ? "text-white" : "text-slate-300"
+              }`}
+              onClick={() => {
+                setSelected("light");
+                if (darkMode) toggleDarkMode();
+              }}
+            >
+              <FiMoon className="relative z-10 text-lg md:text-sm" />
+              <span className="relative z-10">Light</span>
+            </button>
+            <button
+              className={`${TOGGLE_CLASSES} ${
+                selected === "dark" ? "text-white" : "text-slate-800"
+              }`}
+              onClick={() => {
+                setSelected("dark");
+                if (!darkMode) toggleDarkMode();
+              }}
+            >
+              <FiSun className="relative z-10 text-lg md:text-sm" />
+              <span className="relative z-10">Dark</span>
+            </button>
+            <div
+              className={`absolute inset-0 z-0 flex ${
+                selected === "dark" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <motion.span
+                layout
+                transition={{ type: "spring", damping: 15, stiffness: 250 }}
+                className="h-full w-1/2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600"
               />
-              <div className="block bg-accent dark:bg-accent w-12 h-6 rounded-full"></div>
-              <div
-                className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition duration-500 ${
-                  darkMode ? "translate-x-6" : ""
-                }`}
-              ></div>
             </div>
-            <span className="ml-2 text-secondary dark:text-white text-sm">
-              {darkMode ? "LightMode☀️" : "DarkMode🌙"}
-            </span>
-          </label>
+          </div>
         </div>
       )}
+      </AnimatePresence>
     </nav>
   );
 };
 
 export default Navbar;
+

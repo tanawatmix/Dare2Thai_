@@ -7,6 +7,8 @@ import { BsCardImage } from "react-icons/bs";
 import bp from "./assets/bp.jpg"; // Background image
 import wp from "./assets/wp.jpg"; // Background image
 
+
+
 const placeTypes = ["ร้านอาหาร", "สถานที่ท่องเที่ยว", "โรงแรม"];
 const provinces = [
   "กรุงเทพมหานคร",
@@ -177,7 +179,7 @@ const CreatePost = () => {
             <button
               type="button"
               onClick={() => document.getElementById("image-upload")?.click()}
-              className="w-full bg-primary px-10 w-14 dark:bg-secondary dark:text-primary border border-blue-400 dark:border-pink-400 text-secondary py-3 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+              className="w-full bg-primary px-10 w-14 justify-items-center dark:bg-secondary dark:text-primary border border-blue-400 dark:border-pink-400 text-secondary py-3 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition"
             >
               <BsCardImage className="text-2xl  " />
             </button>

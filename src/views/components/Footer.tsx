@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container  px-3 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="md-flex mb-1">
           <h2
-            className={`ml-2 text-xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none ${
+            className={`ml-2 text-xl font-extrabold tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none bg-[length:200%_auto] animate-gradient-anim ${
               darkMode
                 ? "bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400"
                 : ""
@@ -19,7 +19,7 @@ const Footer = () => {
             Dare2Thai
           </h2>
           <p
-            className={`ml-1 text-sm font-light tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none ${
+            className={`ml-1 text-sm font-light tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none bg-[length:200%_auto] animate-gradient-anim ${
               darkMode
                 ? "bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400"
                 : ""
@@ -28,7 +28,7 @@ const Footer = () => {
             © 2025 All rights reserved.
           </p>
           <p
-            className={`ml-1 text-sm font-light tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none ${
+            className={`ml-1 text-sm font-light tracking-tight bg-gradient-to-r from-pink-500 via-pink-400 to-orange-300 bg-clip-text text-transparent select-none bg-[length:200%_auto] animate-gradient-anim ${
               darkMode
                 ? "bg-gradient-to-r from-blue-500 via-purple-300 to-pink-400"
                 : ""
